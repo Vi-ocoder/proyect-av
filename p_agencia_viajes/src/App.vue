@@ -2,7 +2,6 @@
   <v-app>
     <app-bar />
   </v-app>
-  
 </template>
 
 <script>
