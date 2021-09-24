@@ -55,6 +55,7 @@
 
                 <v-col cols="12" md="6">
                   <v-text-field
+                    id="entradaPrecio"
                     label="Valor en Pesos"
                     class="purple-input"
                     type="number"
@@ -164,7 +165,7 @@ export default {
     },
   data() {
     return {
-      
+
       formPaqRules: [
         (value) => !!value || "Este campo es obligatorio",
         (value) =>

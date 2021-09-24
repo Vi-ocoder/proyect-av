@@ -28,8 +28,8 @@
         <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
+      <v-btn icon href="/">
+        <v-icon>mdi-home</v-icon>
       </v-btn>
 
       <v-menu
@@ -118,6 +118,7 @@
     data: () => ({
       drawer: false,
       group: null,
+      irHome: "/",
       itemsBar: [
         { title: 'Click Me' },
         { title: 'Click Me' },

@@ -1,6 +1,6 @@
 <template>
 <v-hover v-slot="{ hover }">
-  <v-card id="cardPaq" class="mx-auto" max-width="400">
+  <v-card id="cardPaq" class="mx-auto" max-width="auto">
     
     <v-img class="white--text align-end" height="200px" :src="paq.imagePaq">
       <v-expand-transition>
@@ -18,10 +18,10 @@
       
     </v-img>
 
-    <v-card-subtitle class="pb-0"> {{ paq.cityPaq }} - {{ paq.depPaq }}</v-card-subtitle>
+    <v-card-subtitle class="pb-0" id="v-card-sbtitle"> {{ paq.cityPaq }} - {{ paq.depPaq }}</v-card-subtitle>
 
     <v-card-text class="text--primary">
-      <div > {{ paq.hotelPaq }}</div>
+      <div id="divHotelPaq" > {{ paq.hotelPaq }}</div>
     </v-card-text>
     <v-card-actions>
       
@@ -169,5 +169,12 @@ export default {
   font-size:auto;
   color:white;
   text-shadow: 3px 3px 2px rgba(0, 0, 0, 0.74);
+}
+#v-card-sbtitle{
+  font-size: 150%;
+}
+#divHotelPaq{
+  font-size: 130%;
+  padding-top: 10px;
 }
 </style>
