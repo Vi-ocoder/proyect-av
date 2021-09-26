@@ -38,7 +38,7 @@ export default {
       paqs: [],
       items: [
         {
-          src: "https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg",
+          src: "https://picsum.photos/1920/1080?random",
         },
         {
           src: "https://cdn.vuetifyjs.com/images/carousel/sky.jpg",

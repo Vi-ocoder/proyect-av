@@ -2,25 +2,26 @@
   <v-card class="overflow-hidden">
     <v-app-bar
       absolute
-      color="blue"
+      color= "rgba(96,80,220,.5)"
       dark
       shrink-on-scroll
       prominent
-      src="https://picsum.photos/1920/1080?random"
+      src="https://s3.amazonaws.com/imagesrepository.icommarketing.com/ImagesRepo/NDAwLTYzMi1kZWNhbWVyb25jbw2/632/Site/OTR/2021/EN/09septiembre/aon/booking-otr-sep.jpg"
       fade-img-on-scroll
       scroll-target="#scrolling-techniques-5"
       scroll-threshold="100"
+      flat
     >
       <template v-slot:img="{ props }">
         <v-img
           v-bind="props"
-          gradient="to top right, rgba(55,236,186,.1), rgba(25,32,72,.7)"
+          gradient="to top right, rgba(55,236,186,.0), rgba(25,32,72,.2)"
         ></v-img>
       </template>
 
       <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-app-bar-title>Aquí el Nombre de la Agencia</v-app-bar-title>
+      <v-app-bar-title id="tituloAppBar">COLOMviajeros.com</v-app-bar-title>
 
       <v-spacer></v-spacer>
 
@@ -127,7 +128,7 @@
       ],
       itemsDrawer: [
           { title: 'Dashboard', icon: 'mdi-view-dashboard' , to: "/views/CrearPaquete" },
-          { title: 'Account', icon: 'mdi-account-box' , to: "/ab"  },
+          { title: 'Account', icon: 'mdi-account-box' , to: "/IniciarSesion"  },
           { title: 'Admin', icon: 'mdi-gavel' , to: "/pruebas" },
           { title: 'CreatePaq', icon: 'mdi-star', to: "/crear-paquete" },
           { title: 'Paqs', icon: 'mdi-tag-heart-outline', to: "/paqs" },
@@ -142,3 +143,11 @@
     },
   }
 </script>
+
+<style >
+#tituloAppBar{
+font-family: 'Exo', sans-serif;
+font-weight:bold;
+}
+
+</style>

@@ -1,38 +1,26 @@
 <template>
-  <v-card max-width="auto" class="mx-auto">
+  <v-container>
+    <v-card max-width="auto" class="mx-auto" shaped elevation="9" >
+      <v-img :src="paq.imagePaq" class="white--text align-end" height="350px">
+        <v-card-title class="text-h3 font-italic"
+          >No dejes pasar esta oportunidad</v-card-title>
+        <br />
+        <v-card-subtitle
+          class="text-h4 font-italic text-decoration-overline"
+          v-text="paq.namePaq"
+        ></v-card-subtitle>
 
-    <v-container>
-      
-          <v-card dark>
-            <div >
-                <v-img :src="paq.imagePaq">
-              <div>
-                <v-card-title
-                  class="text-h2 font-italic "
-                >No dejes pasar esta oportunidad</v-card-title>
-
-                <v-card-subtitle class="text-h3 font-italic text-decoration-overline"  v-text="paq.namePaq"></v-card-subtitle>
-
-                <v-card-actions>
-
-                  <v-btn class="ml-2 mt-5" outlined rounded >
-                    LO QUIERO
-                  </v-btn>
-                </v-card-actions>
-              </div>
-
-              
-                
-              </v-img>
-            </div>
-          </v-card>
-    </v-container>
-  </v-card>
+        <v-card-actions>
+          <v-btn class="ml-2 mt-5" rounded to="/ReservarPaq"> LO QUIERO </v-btn>
+        </v-card-actions>
+      </v-img>
+    </v-card>
+  </v-container>
 </template>
 <script>
 export default {
   data: () => ({
-    paq : [],
+    paq: [],
     items: [
       {
         color: "#1F7087",
@@ -55,9 +43,11 @@ export default {
     updateList() {
       console.log("updateList");
       let listPaqs = JSON.parse(localStorage.getItem("listPaqs"));
-     
-        this.paq = listPaqs[3];
+
+      this.paq = listPaqs[5];//esto se debe selecionar desde el home
     },
   },
 };
 </script>
+<style>
+</style>

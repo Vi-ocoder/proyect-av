@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <app-bar />
+    
   </v-app>
 </template>
 
@@ -15,3 +16,6 @@
     }),
   }
 </script>
+<style lang="scss">
+@import url('https://fonts.googleapis.com/css2?family=Exo&display=swap');
+</style>

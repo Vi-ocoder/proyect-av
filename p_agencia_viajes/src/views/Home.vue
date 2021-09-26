@@ -1,24 +1,38 @@
 <template>
-  <v-container>
-    <v-card>
+    
       <div>
+        <icons-home />
+        <br>
+        <h1 id="titulo">AQUÍ HACES REALIDAD TUS SUEÑOS</h1>
         <solo-home />
-      </div>
-    </v-card>
-    <v-card>
-      <div>
+    <br>
         <traer-carrusel/>
+        <br>
+        <Footer />
       </div>
-    </v-card>
-  </v-container>
+  
+
 </template>
 
 <script>
 export default {
   name: "Home",
   components: {
+    Footer: () => import('../components/Footer'),
     TraerCarrusel: () => import("../components/carruselHome"),
     SoloHome: () => import("../components/soloHome"),
+    iconsHome: () => import("../components/iconsHome"),
   },
 };
 </script>
+<style lang="scss">
+#titulo{
+  position: relative;
+  text-align: center;
+  color: rgb(103, 143, 218);
+  font-family: 'Exo', sans-serif;
+  
+}
+
+
+</style>
