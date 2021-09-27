@@ -1,24 +1,41 @@
 <template>
   <v-container>
-    <v-row justify="space-around">
-      <div>
-        <v-icon large color="green darken-2"> mdi-domain </v-icon>
-        <p>HOLA</p>
+    <v-row id="v-row-icons" justify="space-around">
+      <div id="divIcon1" justify="space-around">
+        <v-btn class="ma-2" outlined large fab color="indigo">
+          <v-icon large color="blue darken-2"> mdi-bed </v-icon>
+        </v-btn>
+        <p>LOS MEJORES HOTELES</p>
       </div>
-      <div>
-        <v-icon large color="purple darken-2"> mdi-dialpad </v-icon>
-        <p>VIVIR</p>
+      <div id="divIcon2">
+        <v-btn class="ma-2" outlined large fab color="indigo">
+          <v-icon large color="blue darken-2"> mdi-bus </v-icon>
+        </v-btn>
+        <p>TRANSPORTE VIP</p>
       </div>
-      <div>
-        <v-icon large color="blue-grey darken-2"> mdi-call-split </v-icon>
-        <p>VIVIR</p>
+      <div id="divIcon3">
+        <v-btn class="ma-2" outlined large fab color="indigo">
+          <v-icon large color="blue darken-2"> mdi-calendar-check </v-icon>
+        </v-btn>
+        <p>SERVICIO TODO EL AÑO</p>
       </div>
-      <div>
-        <v-icon large color="orange darken-2">
-          mdi-arrow-up-bold-box-outline
-        </v-icon>
-        <p>VIVIR</p>
+      <div id="divIcon4">
+        <v-btn class="ma-2" outlined large fab color="indigo">
+          <v-icon large color="blue darken-2"> mdi-currency-usd </v-icon>
+        </v-btn>
+        <p>TODO AL MEJOR PRECIO</p>
       </div>
     </v-row>
   </v-container>
 </template>
+
+<style>
+#divIcon1,
+#divIcon2,
+#divIcon3,
+#divIcon4 {
+  text-align: center;
+  font-family: 'Exo', sans-serif;
+  color:rgb(240, 128, 128);
+}
+</style>
