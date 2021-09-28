@@ -9,6 +9,7 @@
     <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
     <v-toolbar-title>Agencia de Viajes COLOMviajeros</v-toolbar-title>
+    
     <v-breadcrumbs id="links" :items="items" divider= "-" large>
       <template v-slot:item="{ item }">
         <v-breadcrumbs-item :href="item.href" :disabled="item.disabled">

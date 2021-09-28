@@ -1,10 +1,8 @@
 <template>
+<v-card flex>
     <v-app-bar
-      absolute
       color="primary"
       dark
-      inverted-scroll
-      scroll-target="#scrolling-techniques-8"
     >
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
 
@@ -24,4 +22,5 @@
         <v-icon>mdi-dots-vertical</v-icon>
       </v-btn>
     </v-app-bar>
+    </v-card>
 </template>

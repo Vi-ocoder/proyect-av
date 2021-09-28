@@ -9,7 +9,9 @@
     <br>
     <v-divider></v-divider> 
     <br>
+    <h3 id="titulo3">CON NOSOTROS SIEMPRE TIENES MÁS</h3>
     <icons-home />
+    <v-divider></v-divider> 
     <br />
     <h2 id="titulo2">...aquí es donde se hacen REALIDAD TUS SUEÑOS!</h2>
     <solo-home />
@@ -30,7 +32,7 @@ export default {
 };
 </script>
 <style lang="scss">
-#titulo2 {
+#titulo2, #titulo3 {
   position: relative;
   text-align: center;
   color: rgb(103, 143, 218);
