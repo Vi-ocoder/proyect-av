@@ -5,8 +5,7 @@
         <v-col
           v-for="paq in paqs"
           :key="paq.idPaq"
-          lg="3"
-          md="4"
+          lg="4"
           sm="6"
           xs="12"
         >
@@ -26,6 +25,43 @@
     >
       <v-icon>mdi-plus</v-icon>
     </v-btn>
+    <v-btn
+      id="addButton2"
+      color="secondary"
+      dark
+      absolute
+      top
+      right
+      fab
+      @click="dialog = !dialog"
+    >
+      <v-icon>mdi-eye</v-icon>
+    </v-btn>
+
+    <v-dialog
+          v-model="dialog"
+          max-width="500px"
+        >
+          <v-card>
+            <v-card-text>
+              <v-text-field label="File name"></v-text-field>
+
+              <small class="grey--text">Este boton aun no hace nada.</small>
+            </v-card-text>
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+
+              <v-btn
+                text
+                color="primary"
+                @click= "dialog = false" 
+              >
+                Submit
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
   </div>
 </template>
 
@@ -37,6 +73,7 @@ export default {
   },
   data() {
     return {
+      dialog: false,
       paqs: [],
     };
   },
@@ -57,10 +94,15 @@ export default {
 
 <style scope>
 #addButton {
+  top: 85px;
+  position:fixed;
+}
+#addButton2 {
   top: 200px;
+  position:fixed;
 }
 #v-container-paqs{
-  background-image: url("../../public/fondoPaquetes.jpeg");
+  background-color: rgba(236, 241, 250, 0.1);
   background-size: 100%;
   }
 </style>

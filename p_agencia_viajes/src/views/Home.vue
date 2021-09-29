@@ -1,29 +1,58 @@
 <template>
-  <div class="home">
-    <h1>ESTA ES MI PAGINA DE INICIO</h1>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis provident, rem laborum consequuntur officia, impedit, deserunt aliquid adipisci sint fugit quibusdam? Eaque officiis rem, suscipit laborum aliquam quae molestiae officia!</p>
+  <div id="divHome">
+    <v-img id="vImg" width="100%" src="https://www.decameron.com/images/todo-incluido/galeria/todo-incluido-xl-003.jpg">
+    
+    <div id="divIcon0">
+        <h1 dark>COLOMviajeros.com <v-icon color="white" x-large>mdi-train-car</v-icon></h1>
+      </div>
+    </v-img>
     <br>
-    <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, consequatur. In nemo praesentium modi fuga corporis assumenda. Aut corporis hic accusamus porro recusandae consectetur? Explicabo possimus accusantium repellendus ipsam exercitationem.
-    </p>
+    <v-divider></v-divider> 
     <br>
-    <br>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias in dolores ex totam voluptate molestiae tenetur, voluptas ipsa beatae, autem deserunt? Accusamus dicta pariatur perspiciatis consequatur mollitia laborum porro possimus!</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nobis doloremque adipisci cumque, architecto numquam repellendus placeat! Sit placeat facilis nesciunt velit aliquid autem, quas ipsum, tempora perspiciatis tenetur dolorem officiis!</p>
-     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis provident, rem laborum consequuntur officia, impedit, deserunt aliquid adipisci sint fugit quibusdam? Eaque officiis rem, suscipit laborum aliquam quae molestiae officia!</p>
-    <br>
-    <p>
-      Lorem ipsum dolor sit, amet consectetur adipisicing elit. Exercitationem, consequatur. In nemo praesentium modi fuga corporis assumenda. Aut corporis hic accusamus porro recusandae consectetur? Explicabo possimus accusantium repellendus ipsam exercitationem.
-    </p>
-    <br>
-    <br>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias in dolores ex totam voluptate molestiae tenetur, voluptas ipsa beatae, autem deserunt? Accusamus dicta pariatur perspiciatis consequatur mollitia laborum porro possimus!</p>
+    <h3 id="titulo3">CON NOSOTROS SIEMPRE TIENES MÁS</h3>
+    <icons-home />
+    <v-divider></v-divider> 
+    <br />
+    <h2 id="titulo2">...aquí es donde se hacen REALIDAD TUS SUEÑOS!</h2>
+    <solo-home />
+    <br />
+    <traer-carrusel />
+    <br />
   </div>
-
 </template>
 
 <script>
-  export default {
-    name: 'Home',
-  }
+export default {
+  name: "Home",
+  components: {
+    TraerCarrusel: () => import("../components/carruselHome"),
+    SoloHome: () => import("../components/soloHome"),
+    iconsHome: () => import("../components/iconsHome"),
+  },
+};
 </script>
+<style lang="scss">
+#titulo2, #titulo3 {
+  position: relative;
+  text-align: center;
+  color: rgb(103, 143, 218);
+  font-family: "Exo", sans-serif;
+}
+#divIcon0{
+font-family: 'Exo', sans-serif;
+font-weight:bold;
+font-size: x-large;
+text-shadow: 2px 2px 2px black;
+position: absolute;
+margin-top: 100px;
+margin-left: 50px;
+color: white; 
+background-color: rgba(0, 0, 0, 0.322);
+border-radius: 10px;
+padding: 10px;
+};
+
+#vImg{
+  top:-70px
+}
+</style>
