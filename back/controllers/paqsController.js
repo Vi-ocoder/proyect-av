@@ -13,7 +13,7 @@ module.exports = class PaqsController {
 
     }
     static async getById(req, res) {
-        const id = req.params.id;
+        const id = req.params.idPaq;
         try {
             const paq = await paqModel.findOne({ "code": id });
             if (paq != null) {
@@ -42,7 +42,7 @@ module.exports = class PaqsController {
 
     static async upDate(req, res) {
         try {
-            const id = req.params.id;
+            const id = req.params.idPaq;
             const paq = req.body;
             const newPaq = await paqModel.updateOne({ "code": id }, paq);
             res.status(200).json(newPaq);
@@ -53,7 +53,7 @@ module.exports = class PaqsController {
 
     static async delete(req, res) {
         try {
-            const id = req.params.id;
+            const id = req.params.idPaq;
             await paqModel.deleteOne({ "code": id });
             res.status(200).json();
         } catch (err) {

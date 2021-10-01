@@ -92,8 +92,9 @@
                 <v-col cols="12" md="4">
                   <v-text-field
                     class="purple-input"
-                    label="pendiente"
-                    value="locationPaq"
+                    label="Asigne un Código"
+                    v-model="idPaq"
+                    type = "number"
                   />
                 </v-col>
 
@@ -182,6 +183,7 @@
 </template>
 
 <script>
+import { insertPaq } from "../services/PaqsService";
 export default {
   data() {
     return {
@@ -228,6 +230,7 @@ export default {
           (value && value.length >= 5) ||
           "Debe usar un nombre significativo (min 5 caracteres)",
       ],
+      idPaq: 0,
       namePaq: "",
       descriptionPaq:
         "Aquí va una descripción del paquete, recuerde poner detalles llamativos, ser específico pero brindar inrformación clara y completa...",
@@ -246,6 +249,7 @@ export default {
   },
   methods: {
     savePaq() {
+      /*
       let listPaqs = JSON.parse(localStorage.getItem("listPaqs"));
       if (listPaqs == undefined) {
         listPaqs = [];
@@ -255,9 +259,9 @@ export default {
         idPaq = 1000;
       } else {
         idPaq = parseInt(idPaq) + 1;
-      }
+      }*/
       const paq = {
-        idPaq: idPaq,
+        idPaq: this.idPaq,
         namePaq: this.namePaq,
         descriptionPaq: this.descriptionPaq,
         valuePaq: this.valuePaq,
@@ -271,6 +275,12 @@ export default {
         locationPaq: this.cityPaq + " - " + this.depPaq,
         Incluidos: this.selection,
       };
+      insertPaq(paq)
+      .then((response) => {
+        console.log("se ha creado el producto: ",response.data._id);
+      })
+      .catch((err) => console.error(err));
+      /* esto se puede poner en el response
       listPaqs.push(paq);
       (this.namePaq = ""),
         (this.descriptionPaq = ""),
@@ -285,7 +295,7 @@ export default {
         (this.locationPaq = ""),
         (this.Tiquetes = ""),
         localStorage.setItem("listPaqs", JSON.stringify(listPaqs));
-      localStorage.setItem("idPaq", idPaq);
+      localStorage.setItem("idPaq", idPaq);*/
     },
   },
 };

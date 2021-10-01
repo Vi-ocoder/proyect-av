@@ -67,6 +67,7 @@
 
 <script>
 import infoPaq from "../components/infoPaq.vue";
+import { getAllPaqs } from "../services/PaqsService";
 export default {
   components: {
     infoPaq,
@@ -78,9 +79,16 @@ export default {
     };
   },
   mounted() {
-    this.updateList();
+    //esta es la nueva 
+    getAllPaqs()
+    .then((response) => {
+      this.paqs = response.data;
+    })
+    .catch((err)=>console.error(err));
+    //esta es la antigua
+    //this.updateList();
   },
-  methods: {
+  /*methods: {
     updateList() {
       console.log("updateList");
       let listPaqs = JSON.parse(localStorage.getItem("listPaqs"));
@@ -88,7 +96,7 @@ export default {
         this.paqs = listPaqs;
       }
     },
-  },
+  },*/
 };
 </script>
 

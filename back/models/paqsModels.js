@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const paqSchema = mongoose.Schema({
-    "code": Number,
+    "idPaq": Number,
     "namePaq": String,
     "hotelPaq": String,
     "valuePaq": String,
