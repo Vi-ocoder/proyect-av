@@ -7,10 +7,16 @@ import InfoPaq from "../components/infoPaq.vue";
 import VerDetalles from "../components/VerDetalles.vue";
 import ReservarPaq from "../components/ReservarPaq.vue";
 
+//Archivos vue para la pagina web informatica de la agencia de viajes
+import HomeP from '../views/webPage/Home.vue'
+import Travels from '../views/webPage/Travels.vue'
+import Contactus from '../views/webPage/Contactus.vue'
+
 Vue.use(VueRouter)
 
-const routes = [{
-        path: '/',
+const routes = [
+    {
+        path: '/admin',
         name: 'Home',
         component: Home
     },
@@ -54,6 +60,30 @@ const routes = [{
         name: 'ReservarPaq',
         component: ReservarPaq
     },
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //Rutas para pagina web informativa agencia viajes
+    {
+        path: '/',
+        name: 'Home',
+        component: HomeP
+    },
+    {
+        path: '/travels',
+        name: 'Travels',
+        component: Travels
+    },
+    {
+        path: '/contact-us',
+        name: 'Contactus',
+        component: Contactus
+    },
+    {
+        path: '/login',
+        name: 'login',
+        component: () => import(/* webpackChunkName: "about" */ '../views/webPage/Login.vue')
+    },
+    //////////////////////////////////////////////////////////////////////////////////////////////////
 ]
 
 const router = new VueRouter({

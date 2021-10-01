@@ -31,5 +31,11 @@
         </v-btn>
       <!-- </router-link> -->
 
+      <!-- Vista Admins (pruebas, producto final borrar este enlace)  -->
+      <v-btn value="contacts" to="/admin"  style="height: inherit; background-color: transparent;">
+        Administrativo
+        <v-icon> fas fa-user-shield </v-icon>
+      </v-btn>
+
     </v-bottom-navigation>
 </template>
