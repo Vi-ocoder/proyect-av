@@ -27,7 +27,7 @@
           <v-row>
             <v-dialog transition="dialog-bottom-transition" max-width="90%">
               <template v-slot:activator="{ on, attrs }">
-                <v-btn id="lookDetails" text color="primary" v-bind="attrs" v-on="on"
+                <v-btn class="lookDetails" text color="primary" v-bind="attrs" v-on="on"
                   >VER DETALLES
                 </v-btn>
               </template>
@@ -215,7 +215,9 @@ export default {
   font-family: "Exo", sans-serif;
   text-shadow: 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.2);
 }
-#lookDetails{
+.lookDetails{
   font-family: "Exo2", sans-serif;
+  padding-left: 40px;
+  padding-right: 40px;
 }
 </style>

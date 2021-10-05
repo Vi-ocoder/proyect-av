@@ -23,7 +23,6 @@
 
 <script>
 export default {
-  name: "Home",
   components: {
     TraerCarrusel: () => import("../components/carruselHome"),
     SoloHome: () => import("../components/soloHome"),
