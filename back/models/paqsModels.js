@@ -15,7 +15,6 @@ const paqSchema = mongoose.Schema({
     "imagePaq": String,
     "descriptionPaq": String,
     "Incluidos": Object
-
 });
 
 module.exports = mongoose.model("Paq", paqSchema);

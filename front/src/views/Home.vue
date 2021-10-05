@@ -10,7 +10,6 @@
     <v-divider></v-divider> 
     <br>
     <h3 id="titulo3">CON NOSOTROS SIEMPRE TIENES MÁS</h3>
-    <icons-home />
     <v-divider></v-divider> 
     <br />
     <h2 id="titulo2">...aquí es donde se hacen REALIDAD TUS SUEÑOS!</h2>
@@ -26,7 +25,6 @@ export default {
   components: {
     TraerCarrusel: () => import("../components/carruselHome"),
     SoloHome: () => import("../components/soloHome"),
-    iconsHome: () => import("../components/iconsHome"),
   },
 };
 </script>
