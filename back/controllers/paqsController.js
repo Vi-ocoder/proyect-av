@@ -13,9 +13,9 @@ module.exports = class PaqsController {
 
     }
     static async getById(req, res) {
-        const id = req.params.id;
+        const id = req.params.idPaq;
         try {
-            const paq = await paqModel.findOne({ "code": id });
+            const paq = await paqModel.findOne({ "idPaq": id });
             if (paq != null) {
                 res.status(200).json(paq);
             } else {
@@ -42,9 +42,9 @@ module.exports = class PaqsController {
 
     static async upDate(req, res) {
         try {
-            const id = req.params.id;
+            const id = req.params.idPaq;
             const paq = req.body;
-            const newPaq = await paqModel.updateOne({ "code": id }, paq);
+            const newPaq = await paqModel.updateOne({ "idPaq": id }, paq);
             res.status(200).json(newPaq);
         } catch (err) {
             res.status(400).json({ message: err.message });
@@ -53,13 +53,11 @@ module.exports = class PaqsController {
 
     static async delete(req, res) {
         try {
-            const id = req.params.id;
-            await paqModel.deleteOne({ "code": id });
+            const id = req.params.idPaq;
+            await paqModel.deleteOne({ "idPaq": id });
             res.status(200).json();
         } catch (err) {
             res.status(400).json({ message: err.message });
         }
     }
-
-    //----
 }

@@ -1,19 +1,20 @@
 const mongoose = require("mongoose");
 
 const paqSchema = mongoose.Schema({
-    "code": Number,
+    "idPaq": Number,
     "namePaq": String,
     "hotelPaq": String,
     "valuePaq": String,
-    "fechaIPaq": Date,
-    "fechaFPaq": Date,
+    "Promocinal": String,
+    "dcto": Number,
+    "dateIPaq": Date,
+    "dateFPaq": Date,
+    "addresPaq": String,
     "cityPaq": String,
     "depPaq": String,
     "imagePaq": String,
-    "addresPaq": String,
     "descriptionPaq": String,
     "Incluidos": Object
-
 });
 
-module.exports = mongoose.model("paq", paqSchema);
+module.exports = mongoose.model("Paq", paqSchema);
