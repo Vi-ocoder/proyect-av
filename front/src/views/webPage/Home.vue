@@ -56,6 +56,10 @@
             <p class="text-justify"> Por temporadas tambien ofrecemos descuentos en paquetes unicos de viajes. </p>
           </div>
         </div>
+        <v-divider></v-divider>
+        <br>
+        <h2 class="mb-4 text-center"> Todo lo que necesitas en un mismo lugar </h2>
+        <vista-rapida />
         <br><br><br>
       </v-container>
     </v-main>
@@ -63,7 +67,11 @@
 </template>
 
 <script>
+import vistaRapida from "../../components/carruselHome.vue";
   export default {
+    components: {
+    vistaRapida,
+  },
     data: () => ({ 
       drawer: null,
       value: 'home' // Donde quiero que inicie pintado el selector del menu v-bottom-navigation

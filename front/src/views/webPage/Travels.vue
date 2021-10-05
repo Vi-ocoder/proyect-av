@@ -61,40 +61,11 @@
             </v-img>
           </div>
         </div>
-
-        <!-- paquetes TRAIDOS DE LA BD (agregado por victor) -->
-        <div id="v-container-paqs">
-          <v-btn
-            id="addButton"
-            color="primary"
-            dark
-            absolute
-            top
-            right
-            fab
-            to="/crear-paquete"
-          >
-            <v-icon>mdi-plus</v-icon>
-          </v-btn>
-          <v-btn
-            id="addButton2"
-            color="secondary"
-            dark
-            absolute
-            top
-            right
-            fab
-            @click="dialog = !dialog"
-          >
-            <v-icon>mdi-eye</v-icon>
-          </v-btn>
-        </div>
-
-        <!-- paquetes turisticos  -->
+        <!-- paquetes turisticos  (cargados desde la base de dtos, estos no tienen descuento)-->
         <div class="row">
           <div class="col-md-12 text-center">
             <v-divider></v-divider>
-            <BR></BR>
+            <br>
             <h2 id="titleOne">PAQUETES TURISTICOS</h2>
           </div>
           <div
@@ -175,7 +146,7 @@
         <!--FIN DE PAQUETES TURISTICOS-->
         <v-divider class="mx-4 pa-5"></v-divider>
 
-        <!-- paquetes promocionales  -->
+        <!-- paquetes promocionales (traidos desde la BD, estos tienen dcto)-->
         <div class="row">
           <div class="col-md-12 text-center">
             <h2 id="titleTwo">PAQUETES PROMOCIONALES</h2>

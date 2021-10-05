@@ -1,16 +1,15 @@
 <template>
-  <v-div width="800">
     <v-card>
       <v-card-title class="text-h5 lighten-2">
         {{ paq.namePaq }}
       </v-card-title>
 
       <v-divider></v-divider>
-      <v-img class="white--text align-end" height="200px" :src="paq.imagePaq">
-        <v-card id="vcardValueInImg">${{ paq.valuePaq }} </v-card>
+      <v-img class="white--text align-end" height="300px" :src="paq.imagePaq">
+        <v-card-subtitle>${{ paq.valuePaq }} </v-card-subtitle>
         <v-card-title id="v-card-title-outhover"
-          >Alojamiento: Hotel {{ paq.hotelPaq }}</v-card-title
-        >
+          >Hotel {{ paq.hotelPaq }}
+          </v-card-title>
       </v-img>
       <v-card-title class="pb-2">
         {{ paq.cityPaq }} - {{ paq.depPaq }}</v-card-title
@@ -74,17 +73,16 @@
         <!--end incluidos-->
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" text to="/ReservarPaq"> LO QUIERO </v-btn>
+        <!--espacio por si necesito botones-->
       </v-card-actions>
     </v-card>
-  </v-div>
 </template>
 
 <script>
 export default {
   selectedItem: 1,
   dialog: false,
-  props: ["paq"],
+  props: ["paq","dialog"],
 };
 </script>
 <style scoped>

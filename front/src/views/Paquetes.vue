@@ -9,7 +9,7 @@
           sm="6"
           xs="12"
         >
-          <infoPaq :paq="paq" v-on:update="updateList()" />
+          <infoPaq :paq="paq"/>
         </v-col>
       </v-row>
     </v-container>

@@ -20,6 +20,23 @@
     sort-by="idPaq"
     class="elevation-1"
   >
+  <!--poner color a los item segun tenga o no dcto-->
+    <template v-slot:item.idPaq="{ item }">
+      <v-chip
+        v-if="item.dcto == 0 || item.dcto == null"
+        color="blue"
+        dark
+      >
+        {{ item.idPaq }}
+      </v-chip>
+      <v-chip
+        v-if="item.dcto > 0 "
+        color="green"
+        dark
+      >
+        {{ item.idPaq }}
+      </v-chip>
+    </template>
     <template v-slot:top>
       <v-toolbar
         flat
@@ -30,35 +47,36 @@
           inset
           vertical
         ></v-divider>
+        <template >
+            <v-btn
+              color="primary"
+              dark
+              class="mb-2"
+              @click="dialog=true"
+            >
+              Nuevo Paquete
+            </v-btn>
+          </template>
         <v-spacer></v-spacer>
         <v-dialog
           v-model="dialog"
           max-width="800px"
         >
-          <template >
-            <v-btn
-              color="primary"
-              dark
-              class="mb-2"
-              
-            >
-              Nuevo Paquete
-            </v-btn>
-          </template>
           <v-card>
             <v-card-title>
               <span class="text-h5">{{ formTitle }} # {{idPaqRoot}}</span>
             </v-card-title>
-            <edit-paq :idPaqRoot="idPaqRoot" :namePaqRoot="namePaqRoot" :dialog="close"/>
+            <create-paq :idPaqRoot="idPaqRoot" :namePaqRoot="namePaqRoot" :dialog="close"/>
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="700px">
           <v-card>
-            <v-card-title class="text-h5">¿Seguro desea borrar el paquete #{{editedItem.idPaq}}, <br>{{editedItem.namePaq}}?<br>El paquete se borrará definitivamente</v-card-title>
+            <v-card-title class="text-h5"><br> ¿Seguro desea borrar el paquete #{{editedItem.idPaq}}, <br>{{editedItem.namePaq}}?</v-card-title>
+            <v-card-subtitle> <br> El paquete se borrará definitivamente..</v-card-subtitle>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
-              <v-btn color="blue darken-1" text @click="deleteItemConfirm">OK</v-btn>
+              <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+              <v-btn color="red darken-1" text @click="deleteItemConfirm">Borrar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
           </v-card>
@@ -100,10 +118,10 @@
 <script>
 import { getAllPaqs } from "../services/PaqsService"; //trae los datos desde la BD
 import { deletePaq } from "../services/PaqsService";
-import EditPaq from "./EditPaq.vue";
+import createPaq from "../views/webPage/createPaq.vue";
   export default {
     components: {
-    EditPaq,
+    createPaq,
     },
     data: () => ({
       dialog: false,
@@ -121,7 +139,7 @@ import EditPaq from "./EditPaq.vue";
             },
             { text: 'Código', value: 'idPaq' },
             { text: 'Hotel', value: 'hotelPaq' },
-            { text: 'Precio', value: 'valuePaq' },
+            { text: 'Precio ($ COP)', value: 'valuePaq' },
             { text: 'Dcto (%)', value: 'dcto' },
             { text: 'Actions', value: 'actions', sortable: false },
       ],

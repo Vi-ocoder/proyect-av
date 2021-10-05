@@ -15,7 +15,7 @@ Vue.use(VueRouter)
 
 const routes = [{
         path: '/admin',
-        name: 'Home',
+        name: 'Adm',
         component: Home
     },
     {
@@ -64,6 +64,18 @@ const routes = [{
         name: 'Editar Paquete',
         component: () =>
             import ('../components/EditPaq.vue')
+    },
+    {
+        path: '/carrHome',
+        name: 'Carrusel Home',
+        component: () =>
+            import ('../components/carruselHome.vue')
+    },
+    {
+        path: '/registro',
+        name: 'Registro',
+        component: () =>
+            import ('../components/CompRegistrarse.vue')
     },
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //Rutas para pagina web informativa agencia viajes

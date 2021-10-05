@@ -1,9 +1,14 @@
 <template>
-<v-container>
+<v-container fluid class="contForm">
+  <v-card class="cardNewUser mx-auto" color = "rgba(255, 255, 255, 0.8)" >
+    <v-card-title>
+      REGISTRATE CON NOSOTROS
+    </v-card-title>
   <v-form
     ref="form"
     v-model="valid"
     lazy-validation
+    class="formNewUser"
   >
     <v-text-field
       v-model="name"
@@ -86,6 +91,8 @@
     </v-btn>
 
   </v-form>
+  </v-card>
+  <br><br>
   </v-container>
 </template>
 <script>
@@ -174,3 +181,20 @@ import { upDateUser } from "../../services/UsersService";
     },
   }
 </script>
+<style>
+.cardNewUser{
+  border-radius: 10px;
+  color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  width: 1000px;
+}
+.formNewUser{  
+  padding: 20px;
+  width: 100%;
+}
+.contForm{
+  background-image: url("https://cdn.vuetifyjs.com/images/cards/house.jpg");
+  background-size: 100%;
+  padding: 20px;
+}
+</style>
