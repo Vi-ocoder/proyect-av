@@ -106,6 +106,18 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/webPage/TravelDetail.vue')
     },
+    {
+        path: '/user-register',
+        name: 'user-register',
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/webPage/UserRegister.vue')
+    },
+    {
+        path: '/user-forgot-password',
+        name: 'user-forgot-password',
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/webPage/ForgotPassword.vue')
+    },
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //RUTAS PARA USUARIOS
