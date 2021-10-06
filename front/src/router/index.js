@@ -118,7 +118,6 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/webPage/ForgotPassword.vue')
     },
-
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //RUTAS PARA USUARIOS
     {
