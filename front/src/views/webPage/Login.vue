@@ -7,11 +7,9 @@
       <v-img src="../../../public/images/pagina/banner_1.jpg" class="bg-img1">
         <v-overlay value="true" absolute>
           <v-form ref="form" v-model="valid" lazy-validation>
-            <v-form-title>
-              INGRESA O REGISTRATE CON NOSOTROS
-            </v-form-title>
-            <br>
-            <br>
+            <h2> INGRESA O REGISTRATE CON NOSOTROS </h2>
+            <br />
+            <br />
             <v-text-field
               v-model="email"
               :rules="emailRules"
@@ -34,7 +32,7 @@
               :disabled="!valid"
               color="success"
               class="mr-8"
-              @click="validate"
+              @click="loginFunction()"
             >
               Ingresar
             </v-btn>
@@ -43,7 +41,7 @@
           <div class="mt-15">
             <p>
               Olvidaste tu contraseña? -
-              <a class="text-decoration-none" href="">
+              <a class="text-decoration-none" href="/user-forgot-password">
                 <span class="white--text font-weight-bold">
                   Recuperar contraseña
                 </span>
@@ -51,7 +49,7 @@
             </p>
             <p>
               No tienes una cuenta? -
-              <a class="text-decoration-none" href="/createUser">
+              <a class="text-decoration-none" href="/user-register">
                 <span class="white--text font-weight-bold"> Registrarse </span>
               </a>
             </p>
@@ -62,26 +60,47 @@
   </v-app>
 </template>
   
-    <style scoped>
+<script>
+import { validateUser } from "../../services/LoginService";
+export default {
+  data: () => ({
+    valid:"",
+    drawer: null,
+    value: "home", // Donde quiero que inicie pintado el selector del menu v-bottom-navigation
+    show1: false,
+    password: "",
+    email:"",
+    emailRules: {
+      required: value => !!value || 'Required.',
+      // min: v => v.length >= 8 || 'Min 8 characters',
+      emailMatch: () => `The email and password you entered don't match`,
+    },
+  }),
+  methods:{
+    loginFunction() {
+      validateUser(this.email, this.password)
+        .then((response) => {
+          const user = response.data;
+          sessionStorage.setItem("username", user.username);
+          sessionStorage.setItem("role", user.role);
+          this.$emit("logged", undefined);
+          window.location.reload();
+        })
+        .catch((err) => {
+          this.showError = true;
+          this.error = err.response.data.message;
+          setInterval(() => {
+            this.showError = false;
+          }, 3000);
+        });
+    },
+  }
+};
+</script>
+<style scoped>
 .bg-img1 {
   /* background: url('../../public/images/pagina/banner_1.jpg'); */
   background-size: cover;
   height: 100vh;
 }
 </style>
-
-    <script>
-export default {
-  data: () => ({
-    drawer: null,
-    value: "home", // Donde quiero que inicie pintado el selector del menu v-bottom-navigation
-    show1: false,
-    password: "Password",
-    rules: {
-      // required: value => !!value || 'Required.',
-      // min: v => v.length >= 8 || 'Min 8 characters',
-      emailMatch: () => `The email and password you entered don't match`,
-    },
-  }),
-};
-</script>

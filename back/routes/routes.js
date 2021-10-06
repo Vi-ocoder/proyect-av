@@ -13,9 +13,10 @@ router.put("/paqs/:idPaq", PaqsController.upDate);
 
 //rutas de usuarios
 router.get("/users", UsersController.getAllUsers);
-router.get("/users/:numDoc", UsersController.getByNumDoc);
+router.get("/users/:numberID", UsersController.getByNumberID);
 router.post("/users", UsersController.insertUser);
-router.delete("/users/:numDoc", UsersController.deleteUser);
-router.put("/users/:numDoc", UsersController.upDateUser);
+router.delete("/users/:numberID", UsersController.deleteUser);
+router.put("/users/:numberID", UsersController.upDateUser);
+router.post("/authenticate", UsersController.validateUser);
 
 module.exports = router;

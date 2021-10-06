@@ -31,6 +31,11 @@
         </v-btn>
       <!-- </router-link> -->
 
+      <!-- Vista de perfil solo para usuarios registrados -->
+      <v-btn v-if="isUser==true" value="contacts" to="/admin"  style="height: inherit; background-color: transparent;">
+        Perfil
+        <v-icon> fas fa-user-shield </v-icon>
+      </v-btn>
       <!-- Vista Admins (pruebas, producto final borrar este enlace)  -->
       <v-btn value="contacts" to="/admin"  style="height: inherit; background-color: transparent;">
         Administrativo
@@ -39,3 +44,17 @@
 
     </v-bottom-navigation>
 </template>
+<script>
+export default {
+  data:()=> ({
+    isUser:false,
+    value:"",
+    
+  }),
+  methods:{
+    isUserOk(){
+      
+    }
+  }
+};
+</script>

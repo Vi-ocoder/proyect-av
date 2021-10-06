@@ -167,7 +167,9 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email, sameAs, minLength } from 'vuelidate/lib/validators'
-
+  //para subir los datos a la BD
+  import { insertUser } from "../../services/UsersService";
+  import { upDateUser } from "../../services/UsersService";
 
   export default {
     mixins: [validationMixin],
@@ -290,7 +292,57 @@
     },
 
     methods: {
+        validate () {
+        let user = {
+        email: this.email,
+        Firstname: this.Firstname,
+        Lastname: this.LastName,
+        select1: this.select1, //tipode doc
+        numberID: this.numberID,
+        typeUser: this.typeUser,
+        photo: this.photo,
+        select2: this.select2, //género
+        birthDate: this.birthDate,
+        password: this.password, 
+        };
+        console.log(user.Firstname)
+        insertUser(user)
+        .then((res) => 
+            console.log("Se ha creado un nuevo Usuario: ", res.numberID),
+            
+        )
+        .catch((err) => console.error(err));
+        //this.$refs.form.reset()*/
+    },
+
+    upDate () {
+        const user = {
+        email: this.email,
+        Firstname: this.Firstname,
+        Lastname: this.LastName,
+        select1: this.select1, //tipode doc
+        numberID: this.numberID,
+        typeUser: this.typeUser,
+        photo: this.photo,
+        select2: this.select2, //género
+        birthDate: this.birthDate,
+        password: this.password,
+        };
+      upDateUser(this.numberID,user)
+        .then((res) => 
+            console.log("Se ha actualizado el Usuario" + res.numberID),
+            
+        )
+        .catch((err) => console.error(err));
+        this.$refs.form.reset()
+    },
+      reset () {
+        this.$refs.form.reset()
+      },
+      
         submit () {
+            this.validate(),//subo los datos a la BD
+            this.clear(),//Limpio los campos
             this.$v.$touch()
         },
 
