@@ -37,7 +37,7 @@
         <v-icon> fas fa-user-shield </v-icon>
       </v-btn>
       <!-- Vista Admins (pruebas, producto final borrar este enlace)  -->
-      <v-btn value="contacts" to="/admin"  style="height: inherit; background-color: transparent;">
+      <v-btn value="contacts" to="/tabPaqs"  style="height: inherit; background-color: transparent;">
         Administrativo
         <v-icon> fas fa-user-shield </v-icon>
       </v-btn>

@@ -9,7 +9,7 @@
               label="Aquí el Nombre del paquete"
               v-model="namePaq"
               prepend-icon="mdi-plus-box"
-              hint="Este es el nombre actual,Si desea puede modificarlo"
+              hint="Se muestra el nombre actual, Si desea puede modificarlo"
               :placeholder="namePaqRoot"
             />
             
@@ -39,6 +39,8 @@
               class="purple-input"
               prepend-icon="mdi-tag-heart-outline"
               v-model="hotelPaq"
+              :placeholder="paqRoot.hotelPaq"
+              hint="Se muestra el hotel actual, Si desea puede modificarlo"
             />
           </v-col>
 
@@ -51,6 +53,8 @@
               prepend-icon="mdi-cash-100"
               v-model="valuePaq"
               prefix="$"
+              :placeholder="paqRoot.valuePaq"
+              hint="Se muestra el precio actual, Si desea puede modificarlo"
             />
           </v-col>
           <v-col cols="12" md="6">
@@ -80,6 +84,8 @@
               class="purple-input"
               prepend-icon="mdi-map-marker-outline"
               v-model="addresPaq"
+              :placeholder="paqRoot.addresPaq"
+              hint="Se muestra la dirección actual, Si desea puede modificar"
             />
           </v-col>
 
@@ -88,6 +94,8 @@
               label="Ciudad"
               class="purple-input"
               v-model="cityPaq"
+              :placeholder="paqRoot.cityPaq"
+              hint="Se muestra la ciudad actual, Si desea puede modificar"
             />
           </v-col>
 
@@ -96,6 +104,8 @@
               label="Departamento"
               class="purple-input"
               v-model="depPaq"
+              :placeholder="paqRoot.depPaq"
+              hint="Se muestra el departamento actual, Si desea puede modificar"
             />
           </v-col>
 
@@ -106,6 +116,7 @@
               prepend-icon="mdi-image-outline"
               placeholder="Inserte aqui la url de la imagen"
               v-model="imagePaq"
+              :hint="paqRoot.imagePaq"
             />
           </v-col>
 
@@ -144,6 +155,8 @@
               label="Realice una descripción del paquete"
               prepend-icon="mdi-playlist-plus"
               v-model="descriptionPaq"
+              :placeholder="paqRoot.descriptionPaq"
+              hint="Se muestra la descripción actual, Si desea puede modificar"
             />
           </v-col>
           <v-col cols="6" class="text-right">
@@ -155,7 +168,9 @@
             <v-btn color="success" class="mr-0" @click="actualizar()">
               ACTUALIZAR PAQUETE # {{idPaqRoot}}
             </v-btn>
-            <v-btn color="secundary" class="mr-0" @click="dialog">
+            <br><br>
+
+            <v-btn color="blue" dark width=233 class="mr-0" @click="dialog">
               CERRAR
             </v-btn>
           </v-col>
@@ -186,7 +201,7 @@ export default {
     SuccessMessage,
     ErrorMessage,
   },
-  props: ["idPaqRoot" , "namePaqRoot", "dialog"],
+  props: ["idPaqRoot" , "namePaqRoot", "dialog", "paqRoot"],
   data() {
     return {
       successMessage: "",
