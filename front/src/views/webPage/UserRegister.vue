@@ -46,6 +46,14 @@
                      @blur="$v.LastName.$touch()"
                     ></v-text-field>
 
+                    <!-- celular de la persona  -->
+                    <v-text-field v-model="phone" label="Numero de Teléfono" required type="number"
+                     :error-messages="numberIDErrors"
+                     :counter="10"
+                     @input="$v.phone.$touch()"
+                     @blur="$v.phone.$touch()"
+                    ></v-text-field>
+
                     <!-- genero de la persona  -->
                     <v-select v-model="select2" label="Genero" required
                       :items="items"

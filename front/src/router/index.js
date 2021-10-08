@@ -132,6 +132,12 @@ const routes = [{
         component: () =>
             import ( /*  */ '../views/users/createUser.vue')
     },
+    {
+        path: '/infoUsers',
+        name: 'Info Users',
+        component: () =>
+            import ( /*  */ '../components/InfoUsers.vue')
+    },
 ]
 
 const router = new VueRouter({

@@ -8,10 +8,11 @@ const userSchema = mongoose.Schema({
     "numberID": Number,
     "typeUser": String,
     "photo": String,
+    "phone": Number,
     "select2": String, //género
     "birthDate": Date,
     "password": String,
-
+    "reservar": Array,
 });
 
 module.exports = mongoose.model("User", userSchema);

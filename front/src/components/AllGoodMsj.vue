@@ -6,7 +6,7 @@
       <v-btn color="red" text v-bind="attrs" @click="close()">
         Cerrar
       </v-btn>
-      <v-btn color="red" text v-bind="attrs" @click="IrInicio()">
+      <v-btn v-if="root != 'EditUser'" color="red" text v-bind="attrs" @click="IrInicio()">
         Ir a Paquetes
       </v-btn>
     </template>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  props: ["message", "snackbar", "close", "IrInicio"],
+  props: ["message", "snackbar", "close", "IrInicio", "root"],
   data: () => ({
     multiLine: true,
   }),

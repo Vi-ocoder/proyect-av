@@ -21,7 +21,7 @@
     class="elevation-1"
   >
   <!--poner color a los item segun tenga o no dcto-->
-    <template v-slot:item.idPaq="{ item }">
+    <template v-slot:item.idPaq="{ item }" >
       <v-chip
         v-if="item.dcto == 0 || item.dcto == null"
         color="blue"
@@ -83,7 +83,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions=" item ">
+    <template v-slot:item.actions=" {item} ">
       <v-icon
         small
         class="mr-2"
