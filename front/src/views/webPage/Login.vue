@@ -6,13 +6,13 @@
 
       <v-img src="../../../public/images/pagina/banner_1.jpg" class="bg-img1">
         <v-overlay value="true" absolute>
-          <v-form ref="form" v-model="valid" lazy-validation>
+          <v-form ref="form" v-on:submit.prevent="validate();">
             <h2> INGRESA O REGISTRATE CON NOSOTROS </h2>
             <br />
             <br />
             <v-text-field
               v-model="email"
-              :rules="emailRules"
+              name="email"
               label="E-mail"
               required
             ></v-text-field>
@@ -21,7 +21,7 @@
               v-model="password"
               :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
               :type="show1 ? 'text' : 'password'"
-              name="input-10-1"
+              name="password"
               label="Contraseña"
               color="white"
               counter
@@ -29,10 +29,9 @@
             ></v-text-field>
 
             <v-btn
-              :disabled="!valid"
               color="success"
               class="mr-8"
-              @click="loginFunction()"
+              type="submit"
             >
               Ingresar
             </v-btn>
@@ -57,6 +56,17 @@
         </v-overlay>
       </v-img>
     </v-main>
+
+    <template>
+        <div class="text-center ma-2">
+          <v-snackbar  v-model="snackbar" top>
+            {{ snackbartext }}
+            <template v-slot:action="{ attrs }">
+              <v-btn color="blue" text v-bind="attrs" @click="snackbar = false"> Close </v-btn>
+            </template>
+          </v-snackbar>
+        </div>
+      </template>
   </v-app>
 </template>
   
@@ -64,17 +74,16 @@
 import { validateUser } from "../../services/LoginService";
 export default {
   data: () => ({
-    valid:"",
     drawer: null,
-    value: "home", // Donde quiero que inicie pintado el selector del menu v-bottom-navigation
     show1: false,
-    password: "",
-    email:"",
-    emailRules: {
-      required: value => !!value || 'Required.',
-      // min: v => v.length >= 8 || 'Min 8 characters',
-      emailMatch: () => `The email and password you entered don't match`,
-    },
+    email:'',
+    password: '',
+    nombre:'',
+    apellido:'',
+    foto:'',
+
+    snackbar: false,
+    snackbartext: '',
   }),
   methods:{
     loginFunction() {
@@ -93,6 +102,27 @@ export default {
             this.showError = false;
           }, 3000);
         });
+    },
+    validate(){
+
+      validateUser(this.email, this.password)
+      .then((response) =>{
+        const user= response.data;
+        sessionStorage.setItem("email", user.email);
+        sessionStorage.setItem("role", user.typeUser);
+        sessionStorage.setItem("nombre", user.Firstname);
+        sessionStorage.setItem("apellido", user.Lastname);
+        sessionStorage.setItem("foto", user.photo);
+
+        this.drawer = true;
+        this.$emit("logged", undefined);
+        this.$router.push({ path: '/' })
+        window.location.reload();
+
+      }).catch((err) => {
+        this.snackbar = true,
+        this.snackbartext = err.response.data.message
+      } );
     },
   }
 };

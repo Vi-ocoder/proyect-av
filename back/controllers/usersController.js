@@ -76,7 +76,7 @@ module.exports = class UsersController {
             const credential = req.body;
             const user = await userModel.findOne({ "email": credential.email });
             if (user == undefined || user == null) {
-                res.status(404).json({ "message": "Usuario no existe" });
+                res.status(404).json({ "message": "El usuario ingresado no existe." });
             } else if (user.password != credential.password) {
                 res.status(403).json({ "message": "Usuario / contraseña no valido" });
             } else {
