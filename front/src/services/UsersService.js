@@ -8,8 +8,11 @@ const insertUser = (user) => httpClient.post(END_POINT, user);
 
 const upDateUser = (numDoc, user) => httpClient.put(END_POINT + "/" + numDoc, user);
 
+const deleteUser = (numberID, user) => httpClient.delete(END_POINT + "/" + numberID, user)
+
 export {
     getAllUsers,
     insertUser,
-    upDateUser
+    upDateUser,
+    deleteUser,
 };

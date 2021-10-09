@@ -159,7 +159,20 @@
                     <v-btn class="mr-4 primary"  @click="submit"> Registrarse </v-btn>
                     <v-btn @click="clear"> Limpiar </v-btn>
                   </form>
-    
+                
+    <!-- snackbar para cuando se registra ok -->
+    <success-message
+          :message="successMessage"
+          :root="root"
+          :snackbar="successShow"
+          :close="close"
+        />
+        <!--snackbar para error en registro-->
+        <error-message
+          :message="errorMessage"
+          :snackbar="errorShow"
+          :close="close"
+        />
             </div>
         </div>
         <br><br><br>
@@ -173,15 +186,21 @@
 </template>
 
 <script>
+//para poner el snackbar
+import SuccessMessage from "../../components/AllGoodMsj.vue";
+import ErrorMessage from "../../components/ErrorMsj.vue";
+//-----------------------------------------------
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email, sameAs, minLength } from 'vuelidate/lib/validators'
   //para subir los datos a la BD
   import { insertUser } from "../../services/UsersService";
-  import { upDateUser } from "../../services/UsersService";
 
   export default {
+    components: {
+        SuccessMessage,
+        ErrorMessage,
+    },
     mixins: [validationMixin],
-
     validations: {
       Firstname: { required, maxLength: maxLength(30) },
       LastName: { required, maxLength: maxLength(30) },
@@ -202,6 +221,13 @@
     },
 
     data: () => ({
+      //para el snackbar
+      successMessage:"",
+      errorMessage:"",
+      root:"UserRegister",
+      successShow:false,
+      errorShow:false,
+      //-------------------
       Firstname: '',
       LastName: '',
       email: '',
@@ -221,6 +247,7 @@
       birthDate:'',
       password: '',
       repeatPassword: '',
+      typeUser:'Cliente',//valor por defecto
       show1: false,
       dialog: false,
     }),
@@ -293,37 +320,10 @@
         !this.$v.repeatPassword.sameAsPassword && errors.push('Las contraseñas deben ser idénticas.')
         return errors
       },
-
-
-      
-      
     },
 
     methods: {
-        validate () {
-        let user = {
-        email: this.email,
-        Firstname: this.Firstname,
-        Lastname: this.LastName,
-        select1: this.select1, //tipode doc
-        numberID: this.numberID,
-        typeUser: this.typeUser,
-        photo: this.photo,
-        select2: this.select2, //género
-        birthDate: this.birthDate,
-        password: this.password, 
-        };
-        console.log(user.Firstname)
-        insertUser(user)
-        .then((res) => 
-            console.log("Se ha creado un nuevo Usuario: ", res.numberID),
-            
-        )
-        .catch((err) => console.error(err));
-        //this.$refs.form.reset()*/
-    },
-
-    upDate () {
+        submit() {
         const user = {
         email: this.email,
         Firstname: this.Firstname,
@@ -334,25 +334,25 @@
         photo: this.photo,
         select2: this.select2, //género
         birthDate: this.birthDate,
-        password: this.password,
+        password: this.password, 
+        phone:this.phone
         };
-      upDateUser(this.numberID,user)
-        .then((res) => 
-            console.log("Se ha actualizado el Usuario" + res.numberID),
-            
+        insertUser(user)
+        .then(() => 
+            this.successMessage = "Gracias, tu resgitro ha sido exitoso.", 
+            this.successShow = true,
         )
-        .catch((err) => console.error(err));
-        this.$refs.form.reset()
+        .catch((err) => {
+            if (this.successShow==false) {
+            this.errorMessage = "Error: "+ err + ")",
+            this.errorShow = true 
+            }
+          }
+        );
     },
       reset () {
         this.$refs.form.reset()
       },
-      
-        submit () {
-            this.validate(),//subo los datos a la BD
-            this.clear(),//Limpio los campos
-            this.$v.$touch()
-        },
 
         //Limpio los campos del formulario
         clear () {
@@ -369,6 +369,18 @@
         goBack(){
             return this.$router.go(-1);
         },
+        //para el snackbar y actualizar la pagina luego de registrarse
+        close(){
+          if (this.successShow==true) {
+            this.successShow=false,
+            this.$router.push("/login");
+          }
+          else{
+            this.errorShow=false;
+            //this.clear(),Limpio los campos
+            }
+          
+      },
     },
   }
 </script>
