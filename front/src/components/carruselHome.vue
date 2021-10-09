@@ -6,8 +6,8 @@
           <!--Pongo un carrusel con los paquetes en el home-->
           <v-carousel
             :cycle="cycle"
-            show-arrows-on-hover="true"
-            progress="true"
+            show-arrows-on-hover=true
+            progress=true
             delimiter-icon="mdi-minus"
             height="620"
           >

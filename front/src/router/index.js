@@ -106,20 +106,18 @@ const routes = [{
         component: () =>
             import ( /* webpackChunkName: "about" */ '../views/webPage/TravelDetail.vue')
     },
-<<<<<<< HEAD:p_agencia_viajes/src/router/index.js
     {
         path: '/user-register',
         name: 'user-register',
-        component: () => import(/* webpackChunkName: "about" */ '../views/webPage/UserRegister.vue')
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/webPage/UserRegister.vue')
     },
     {
         path: '/user-forgot-password',
         name: 'user-forgot-password',
-        component: () => import(/* webpackChunkName: "about" */ '../views/webPage/ForgotPassword.vue')
+        component: () =>
+            import ( /* webpackChunkName: "about" */ '../views/webPage/ForgotPassword.vue')
     },
-=======
-
->>>>>>> VO-coder:front/src/router/index.js
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //RUTAS PARA USUARIOS
     {
@@ -133,6 +131,12 @@ const routes = [{
         name: 'create User',
         component: () =>
             import ( /*  */ '../views/users/createUser.vue')
+    },
+    {
+        path: '/infoUsers',
+        name: 'Info Users',
+        component: () =>
+            import ( /*  */ '../components/InfoUsers.vue')
     },
 ]
 

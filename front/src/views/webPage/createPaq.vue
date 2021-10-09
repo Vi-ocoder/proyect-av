@@ -3,12 +3,24 @@
     <!-- contenido principal  -->
     <v-container id="crear-paquete">
       <v-form id="formPaq">
+        <h2 class="formTitle">CREE EL PAQUETE AQUÍ</h2>
+        <h3 class="formSubTitle">Recuerde ingresar todos los datos solicitados a continuación:</h3>
         <v-row>
-          <v-col cols="12">
+          <v-col cols="8">
             <v-text-field
               label="Aquí el Nombre del paquete"
               v-model="namePaq"
               prepend-icon="mdi-plus-box"
+            />
+          </v-col>
+
+          <v-col cols="12" md="4">
+            <v-text-field
+              class="purple-input"
+              label="Asigne un Código"
+              v-model="idPaq"
+              type="number"
+              hint="Recuerde que este dato identifica al paquete, no se debe repetir"
             />
           </v-col>
 
@@ -79,7 +91,7 @@
             />
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="6">
             <v-text-field
               label="Ciudad"
               class="purple-input"
@@ -87,23 +99,14 @@
             />
           </v-col>
 
-          <v-col cols="12" md="4">
+          <v-col cols="12" md="6">
             <v-text-field
               label="Departamento"
               class="purple-input"
               v-model="depPaq"
             />
           </v-col>
-
-          <v-col cols="12" md="4">
-            <v-text-field
-              class="purple-input"
-              label="Asigne un Código"
-              v-model="idPaq"
-              type="number"
-            />
-          </v-col>
-
+          
           <v-col cols="12">
             <v-text-field
               label="Url de la Imagen"
@@ -152,15 +155,13 @@
             />
           </v-col>
 
-          <v-col cols="12" class="text-right">
-            <v-btn color="primary" class="mr-0" @click="savePaq()">
-              ENVIAR
-            </v-btn>
-            <v-btn color="secondary" class="mr-0" @click="actualizar()">
-              ACTUALIZAR
+          <v-col cols="12" class="text-center">
+            <v-btn color="primary" width=200 x-large @click="savePaq()">
+              CREAR
             </v-btn>
           </v-col>
         </v-row>
+        <br>
         <SuccessMessage
           :message="successMessage"
           :snackbar="successShow"
@@ -180,7 +181,6 @@
 
 <script>
 import { insertPaq } from "../../services/PaqsService";
-import { upDatePaq } from "../../services/PaqsService";
 import SuccessMessage from "../../components/AllGoodMsj.vue";
 import ErrorMessage from "../../components/ErrorMsj.vue";
 export default {
@@ -230,12 +230,12 @@ export default {
           ],
         },
       ],
-      idPaq: 0,
+      idPaq: "",
       namePaq: "",
       hotelPaq: "",
-      valuePaq: 0,
+      valuePaq: "",
       Promocinal: "NO",
-      dcto: 0,
+      dcto: "",
       dateIPaq: "",
       dateFPaq: "",
       addresPaq: "",
@@ -310,60 +310,16 @@ export default {
             (this.selection = []);
         })
         .catch((err) =>
-          this.openErrorDialog("Error al guardar el producto" + err)
+          this.openErrorDialog("Error: " +  this.errCodeDuplicate(err))
         );
     },
-    actualizar() {
-      if (// me aseguro que haya id y name como minimo
-        this.idPaq == undefined ||
-        this.namePaq == undefined ||
-        this.idPaq == "" ||
-        this.namePaq == ""
-      ) {
-        this.openErrorDialog("Ingrese los campos obligatorios");
-        return;
+    errCodeDuplicate(elErr){
+      let msje="Error 400";
+      if (elErr== "Error: Request failed with status code 400") {
+        msje = "El código digitado ya esta en uso, utilice un código diferente" 
       }
-      const paqI = {  //creo un objeto con lo que hay en el formulario 
-        idPaq: this.idPaq,
-        namePaq: this.namePaq,
-        descriptionPaq: this.descriptionPaq,
-        valuePaq: this.valuePaq,
-        Promocinal: this.Promocinal,
-        dcto: this.dcto,
-        hotelPaq: this.hotelPaq,
-        dateIPaq: this.dateIPaq,
-        dateFPaq: this.dateFPaq,
-        addresPaq: this.addresPaq,
-        cityPaq: this.cityPaq,
-        depPaq: this.depPaq,
-        imagePaq: this.imagePaq,
-        Incluidos: this.selection,
-      };
-      //Aqui filtro solo los datos que se modificaron
-      Object.filter = function (mainObject, filterFunction) {
-        return Object.keys(mainObject)
-          .filter(function (ObjectKey) {
-            return filterFunction(mainObject[ObjectKey]);
-          })
-          .reduce(function (result, ObjectKey) {
-            result[ObjectKey] = mainObject[ObjectKey];
-            return result;
-          }, {});
-      };
-
-      var salida = Object.filter(paqI, function (itemX) {
-        return itemX != "";
-      });
-
-      let paq = salida;
-      //---------------------------
-      upDatePaq(this.idPaq, paq)// Cargo los campos modificados a la base de datos
-        .then(() =>
-          this.openSuccessDialog("Se ha actualizado el producto: " + this.idPaq)
-        )
-        .catch(() => this.openErrorDialog("Error al actualizar el producto"));
+      return msje
     },
-
     openSuccessDialog(mensaje) {
       this.successMessage = mensaje;
       this.successShow = true;
@@ -388,7 +344,7 @@ export default {
 
 <style scoped>
 #formPaq {
-  background: linear-gradient(to bottom, white, rgba(128, 128, 128, 0.322));
+  background: linear-gradient(to bottom, white, rgba(40, 74, 224, 0.322));
   border-radius: 10px;
   box-shadow: 3px 3px 2px rgba(0, 0, 0, 0.74);
 }
@@ -399,4 +355,13 @@ export default {
   text-shadow: 2px 2px 2px black;
   color: rgb(84, 98, 223);
 }
+.formTitle{
+  color: rgb(84, 98, 223);
+  text-shadow: 1px 1px 1px rgb(117, 24, 63);
+}
+.formSubTitle{
+  color: rgb(223, 84, 142);
+  font-size:medium;
+}
+
 </style>

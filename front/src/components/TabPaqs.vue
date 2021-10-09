@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container class="contTable">
 <v-card>
 <v-card-title>
       Paquetes Actuales
@@ -7,7 +7,7 @@
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
-        label="Search"
+        label="Buscar"
         single-line
         hide-details
       ></v-text-field>
@@ -21,7 +21,7 @@
     class="elevation-1"
   >
   <!--poner color a los item segun tenga o no dcto-->
-    <template v-slot:item.idPaq="{ item }">
+    <template v-slot:item.idPaq="{ item }" >
       <v-chip
         v-if="item.dcto == 0 || item.dcto == null"
         color="blue"
@@ -47,14 +47,22 @@
           inset
           vertical
         ></v-divider>
-        <template >
+        <template id="actionbtns">
             <v-btn
               color="primary"
               dark
               class="mb-2"
-              @click="dialog=true"
+              to="/crear-paquete"
             >
               Nuevo Paquete
+            </v-btn>
+            <v-btn
+              color="secundary"
+              dark
+              class="mb-2"
+              to="/infoUsers"
+            >
+              Ir a usuarios
             </v-btn>
           </template>
         <v-spacer></v-spacer>
@@ -66,7 +74,7 @@
             <v-card-title>
               <span class="text-h5">{{ formTitle }} # {{idPaqRoot}}</span>
             </v-card-title>
-            <create-paq :idPaqRoot="idPaqRoot" :namePaqRoot="namePaqRoot" :dialog="close"/>
+            <edit-paq :idPaqRoot="idPaqRoot" :namePaqRoot="namePaqRoot" :dialog="close" :paqRoot="paqRoot" />
           </v-card>
         </v-dialog>
         <v-dialog v-model="dialogDelete" max-width="700px">
@@ -75,7 +83,7 @@
             <v-card-subtitle> <br> El paquete se borrará definitivamente..</v-card-subtitle>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="closeDelete">Cancelar</v-btn>
+              <v-btn color="blue darken-1" text @click="dialogDelete=false">Cancelar</v-btn>
               <v-btn color="red darken-1" text @click="deleteItemConfirm">Borrar</v-btn>
               <v-spacer></v-spacer>
             </v-card-actions>
@@ -83,7 +91,7 @@
         </v-dialog>
       </v-toolbar>
     </template>
-    <template v-slot:item.actions="{ item }">
+    <template v-slot:item.actions=" {item} ">
       <v-icon
         small
         class="mr-2"
@@ -99,12 +107,7 @@
       </v-icon>
     </template>
     
-      <v-btn
-        color="primary"
-        @click="initialize"
-      >
-        Reset
-      </v-btn>
+      
   </v-data-table>
 </v-card>
 <v-card>
@@ -118,16 +121,17 @@
 <script>
 import { getAllPaqs } from "../services/PaqsService"; //trae los datos desde la BD
 import { deletePaq } from "../services/PaqsService";
-import createPaq from "../views/webPage/createPaq.vue";
+import EditPaq from './EditPaq.vue';
   export default {
     components: {
-    createPaq,
+        EditPaq,
     },
     data: () => ({
       dialog: false,
       dialogDelete: false,
       search: '',
       paquetes:[],
+      paqRoot:[],
       idPaqRoot: 0,
       namePaqRoot: "",
       headers: [
@@ -176,7 +180,7 @@ import createPaq from "../views/webPage/createPaq.vue";
     },
 
 
-    mounted() {//este mounted trae los datos de cada paquete desde una base de datos en mongo
+mounted() {//este mounted trae los datos de cada paquete desde una base de datos en mongo
     getAllPaqs()
       .then((response) => {
         this.paquetes = response.data; //llena el array "paquetes" con los datos de la bd
@@ -197,13 +201,14 @@ methods: {
       .catch(() => { console.log("Error")})  
     }, 
   
-      editItem (idPaq) {
+    editItem (idPaq) {
         this.editedIndex = this.paquetes.indexOf(idPaq)
         this.editedItem = Object.assign({}, idPaq)
         this.dialog = true
         this.idPaqRoot = this.editedItem.idPaq
         this.namePaqRoot = this.editedItem.namePaq
-      },
+        this.paqRoot = this.editedItem
+    },
 
       deleteItem (idPaq) {
         this.editedIndex = this.paquetes.indexOf(idPaq)
@@ -219,15 +224,32 @@ methods: {
 
       close () {
         this.dialog = false
+        this.actualizarPage()
+      },
+      actualizarPage(){
+        getAllPaqs()
+        .then((response) => {
+          this.paquetes = response.data; //llena el array "paquetes" con los datos de la bd
+          })
+        .catch((err) => console.error(err));
+        }
       },
 
       closeDelete () {
-        this.dialogDelete = false
-        this.$nextTick(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        })
+        this.dialogDelete = false//no funciona desde calcel del dialogo borrar item, revisar
+        //this.$nextTick(() => {
+          //this.editedItem = Object.assign({}, this.defaultItem)
+          //this.editedIndex = -1
+        //})
       },
 }
-    }
 </script>
+<style>
+.contTable{
+  position: relative;
+  width: 100%;
+  background: center;
+  /*background-image: url("https://www.hotelescosmos.com/uploads/galeriahoteles/-DUF7173Dok.jpg");
+*/
+}
+</style>
