@@ -122,7 +122,8 @@
 
           <!--AQUI ESTA LA FILA DE INCLUIDOS (ELEMENTOS QUE INCLUYE CADA PAQUETE)-->
           <v-col cols="12">
-            <v-container>
+            <incluidos :selection="selection"/>
+            <!--v-container>
               <v-row>
                 <v-col>
                   <v-treeview
@@ -145,7 +146,7 @@
                   </template>
                 </v-col>
               </v-row>
-            </v-container>
+            </v-container-->
           </v-col>
           <!--Fin FILA DE INCLUIDOS-->
 
@@ -196,10 +197,12 @@
 import { upDatePaq } from "../services/PaqsService";
 import SuccessMessage from "./AllGoodMsj.vue";
 import ErrorMessage from "./ErrorMsj.vue";
+import Incluidos from "./Incluidos.vue";
 export default {
   components: {
     SuccessMessage,
     ErrorMessage,
+    Incluidos,
   },
   props: ["idPaqRoot" , "namePaqRoot", "dialog", "paqRoot"],
   data() {
@@ -208,7 +211,7 @@ export default {
       successShow: false,
       errorMessage: "",
       errorShow: false,
-      items: [
+      /*items: [
         {
           id: 1,
           name: "Tiquetes",
@@ -243,7 +246,7 @@ export default {
             { id: 4.2, name: "Tour" },
           ],
         },
-      ],
+      ],*/
       idPaq: null,
       namePaq: "",
       hotelPaq: "",

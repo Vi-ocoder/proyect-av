@@ -18,7 +18,7 @@
               <v-dialog v-model="dialog" width="95%">
                 <v-card>
                   <!--Traigo los datos detalles de cada pac desde "VER DETALLES"-->
-                  <verDetalles :paq="paq" :dialog="dialog" />
+                  <verDetalles :paq="paq" :dialog="dialog" :root="root"/>
                   <!--pongo botones flotantes para cerrar el dialog o hacer reserva-->
                   <v-btn
                     id="btnAddPaq"
@@ -66,6 +66,7 @@ export default {
   },
   data() {
     return {
+      root:"carruselHome",
       dialog: false,
       cycle: true,
       paqs: [],

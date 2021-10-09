@@ -251,7 +251,7 @@ export default {
     okDelete(dato){
       deleteUser(dato.numberID,dato)
       .then(() => {
-        this.titleUsersList="El usuario se eliminó, actializando datos...",
+        this.titleUsersList="Usuario eliminado, actializando datos...",
         location.reload();
       })
       .catch((err) => 

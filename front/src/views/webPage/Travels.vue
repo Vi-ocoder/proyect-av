@@ -211,7 +211,7 @@
                           {{ paq.idPaq }}
                         </v-toolbar>
                         <v-card-text>
-                          <ver-detalles :paq="paq" v-on:update="updateList()" />
+                          <ver-detalles :paq="paq" :dialog="null" :root="root" v-on:update="updateList()" />
                         </v-card-text>
                         <v-card-actions class="justify-end">
                           <v-btn text @click="dialog.value = false"
@@ -238,9 +238,10 @@
 
 <script>
 import { getAllPaqs } from "../../services/PaqsService"; //trae los datos desde la BD
+import VerDetalles from "../../components/VerDetalles.vue";
 export default {
   components: {
-    VerDetalles: () => import("../../components/VerDetalles.vue"),
+    VerDetalles,
   },
   data: () => ({
     drawer: null,
@@ -253,6 +254,7 @@ export default {
     paqsDcto: [], // array con paquetes promocionales
     res : "",
     selection: 1,
+    root:"Travels"
   }),
   methods: {
     //activar el loading

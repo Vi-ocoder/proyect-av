@@ -29,15 +29,15 @@
           <v-list >
             <v-subheader>Este paquete incluye los siguientes servicios:</v-subheader>
             <v-row>
-              <v-col lg ="3">
-            <v-list-item 
-                v-for="item in paq.Incluidos" :key="item">      
-                  <v-list-item-icon v-if="item.name == 'Tiquete Ida' ">
-                    <v-icon>mdi-airplane-takeoff</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-icon v-if="item.name == 'Tiquete Regreso' ">
-                    <v-icon>mdi-airplane-landing</v-icon>
-                  </v-list-item-icon> 
+              
+              <v-col lang="auto" cols="6" v-for="item in paq.Incluidos" :key="item">
+                {{item.name}}
+                <v-icon>{{item.icon}}</v-icon>
+            <!--v-list-item 
+              v-for="item in paq.Incluidos" :key="item"
+              > 
+                <v-row>   
+                  <v-col cols="12">
                   <v-list-item-icon v-if="item.name == 'Desayuno' ">
                     <v-icon>mdi-coffee</v-icon>
                   </v-list-item-icon>
@@ -47,6 +47,21 @@
                   <v-list-item-icon v-if="item.name == 'Cena' ">
                     <v-icon>mdi-silverware</v-icon>
                   </v-list-item-icon>
+                
+                  <v-list-item-icon v-if="item.name == 'Tiquete Ida' ">
+                    <v-icon>mdi-airplane-takeoff</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-icon v-if="item.name == 'Tiquete Regreso' ">
+                    <v-icon>mdi-airplane-landing</v-icon>
+                  </v-list-item-icon> 
+                  
+                  <v-list-item-icon v-if="item.name == 'Tour' ">
+                    <v-icon>mdi-map-marker-path</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-icon v-if="item.name == 'Seguro' ">
+                    <v-icon>mdi-shield-lock</v-icon>
+                  </v-list-item-icon>
+                  
                   <v-list-item-icon v-if="item.name == 'Una Persona' ">
                     <v-icon>mdi-human-male</v-icon>
                   </v-list-item-icon>
@@ -56,24 +71,29 @@
                   <v-list-item-icon v-if="item.name == 'Hasta Cuatro Personas' ">
                     <v-icon>mdi-human-male-female-child</v-icon>
                   </v-list-item-icon>
-                  <v-list-item-icon v-if="item.name == 'Tour' ">
-                    <v-icon>mdi-map-marker-path</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-icon v-if="item.name == 'Seguro' ">
-                    <v-icon>mdi-shield-lock</v-icon>
-                  </v-list-item-icon>
+                  
+                  
                 <v-list-item-content>
                   <v-list-item-title>{{item.name}}</v-list-item-title> 
                 </v-list-item-content>
-            </v-list-item>
+                </v-col>
+                </v-row> 
+            </v-list-item-->
             </v-col>
             </v-row>
           </v-list>
         </v-card>
         <!--end incluidos-->
-      <v-card-actions>
+      <v-card-actions :v-if="root='TabPaqs'">
         <v-spacer></v-spacer>
-        <!--espacio por si necesito botones-->
+        <v-btn
+          id="btnClose"
+          color="rgba(1, 1, 1, .1)"
+          relative
+          @click="dialog()"
+          >
+          X
+        </v-btn>
       </v-card-actions>
     </v-card>
 </template>
@@ -81,8 +101,15 @@
 <script>
 export default {
   selectedItem: 1,
-  dialog: false,
-  props: ["paq","dialog"],
+  //dialog: false,
+  props: ["paq","dialog","root"],
+  data(){
+    return{
+
+    }
+  },
+  methods:{
+  },
 };
 </script>
 <style scoped>
@@ -91,5 +118,10 @@ export default {
   color: rgb(120, 120, 241);
   font-weight: bolder;
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+#btnClose {
+  bottom: 550px;
+  right: 350px;
+  position: fixed;
 }
 </style>
