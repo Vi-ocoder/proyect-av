@@ -11,7 +11,6 @@ app.use(express.urlencoded({ extended: true }));
 
 //agregar rutas a escuchar
 app.use("/api", require("./routes/routes"));
-
 // configurar la conexion a base de datos
 const mongoose = require("mongoose");
 mongoose.connect(process.env.DB_URI)

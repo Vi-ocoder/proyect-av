@@ -14,6 +14,7 @@ router.put("/paqs/:idPaq", PaqsController.upDate);
 //rutas de usuarios
 router.get("/users", UsersController.getAllUsers);
 router.get("/users/:numberID", UsersController.getByNumberID);
+router.get("/users//:email", UsersController.getByEmail);
 router.post("/users", UsersController.insertUser);
 router.delete("/users/:numberID", UsersController.deleteUser);
 router.put("/users/:numberID", UsersController.upDateUser);

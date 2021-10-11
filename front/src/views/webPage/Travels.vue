@@ -97,7 +97,7 @@
                 <v-row>
                   <v-dialog
                     transition="dialog-bottom-transition"
-                    max-width="90%"
+                    max-width=700
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -121,7 +121,7 @@
                           <ver-detalles :paq="paq" v-on:update="updateList()" />
                         </v-card-text>
                         <v-card-actions class="justify-end">
-                          <v-btn text @click="dialog.value = false"
+                          <v-btn class="btnClose" color="rgba(240, 128, 128, .5)" dark rounded outline @click="dialog.value = false"
                             >CERRAR</v-btn
                           >
                         </v-card-actions>
@@ -190,7 +190,7 @@
                 <v-row>
                   <v-dialog
                     transition="dialog-bottom-transition"
-                    max-width="90%"
+                    max-width=700
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -213,8 +213,8 @@
                         <v-card-text>
                           <ver-detalles :paq="paq" :dialog="null" :root="root" v-on:update="updateList()" />
                         </v-card-text>
-                        <v-card-actions class="justify-end">
-                          <v-btn text @click="dialog.value = false"
+                        <v-card-actions >
+                          <v-btn class="btnClose" color="rgba(240, 128, 128, .5)" dark rounded outline @click="dialog.value = false"
                             >CERRAR</v-btn
                           >
                         </v-card-actions>
@@ -287,5 +287,10 @@ export default {
 #titleOne, #titleTwo{
   font-family: "Exo2", sans-serif ;
   color: green darken-3 ;
+}
+.btnClose {
+  bottom: 545px;
+  right: 350px;
+  position: fixed;
 }
 </style>

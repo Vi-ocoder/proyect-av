@@ -10,9 +10,14 @@ const upDateUser = (numDoc, user) => httpClient.put(END_POINT + "/" + numDoc, us
 
 const deleteUser = (numberID, user) => httpClient.delete(END_POINT + "/" + numberID, user)
 
+const getByNumberID = (numberID, user) => httpClient.get(END_POINT + "/" + numberID, user)
+const getByEmail = (email, user) => httpClient.get(END_POINT + "//" + email, user)
+
 export {
     getAllUsers,
     insertUser,
     upDateUser,
     deleteUser,
+    getByNumberID,
+    getByEmail,
 };

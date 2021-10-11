@@ -26,9 +26,10 @@
 
 <script>
 export default {
-  props:["selection"],
+    props:[],
   data: () => ({
     isSelectable: true,
+    selection:[],
     items: [
         {
           id: 1,
@@ -48,15 +49,6 @@ export default {
           ],
         },
         {
-          id: 3,
-          name: "N° Personas",
-          children: [
-            { id: 3.1, name: "Una Persona", icon:"mdi-human-male" },
-            { id: 3.2, name: "Dos Personas", icon:"mdi-human-male-female" },
-            { id: 3.3, name: "Hasta Cuatro personas",icon:"mdi-human-male-female-child" },
-          ],
-        },
-        {
           id: 4,
           name: "Seguro y/o Tour",
           children: [
@@ -64,8 +56,22 @@ export default {
             { id: 4.2, name: "Tour", icon:"mdi-map-marker-path" },
           ],
         },
+        {
+          id: 3,
+          name: "N° Personas",
+          children: [
+            { id: "a", name: "Una Persona", icon:"mdi-human-male" },
+            { id: "b", name: "Dos Personas", icon:"mdi-human-male-female" },
+            { id: "c", name: "Hasta Cuatro personas",icon:"mdi-human-male-female-child" },
+          ],
+        },
       ],
   }),
+  watch: {
+    selection(){
+      this.$emit("arrayInIncluidos",this.selection);
+    }
+  },
   methods:{
   },
 };

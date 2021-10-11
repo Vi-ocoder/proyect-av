@@ -227,7 +227,8 @@ export default {
     closeSuccessDialog() {
       this.successShow = "false";
     },
-    setDate(entrada) {//toma el dato "birthDate" y le retira el time
+    //toma el dato "birthDate" y le retira el time
+    setDate(entrada) {
       const salida = entrada.substring(0, 10);
       return this.dateC=salida;
     },

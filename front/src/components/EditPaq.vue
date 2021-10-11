@@ -122,31 +122,7 @@
 
           <!--AQUI ESTA LA FILA DE INCLUIDOS (ELEMENTOS QUE INCLUYE CADA PAQUETE)-->
           <v-col cols="12">
-            <incluidos :selection="selection"/>
-            <!--v-container>
-              <v-row>
-                <v-col>
-                  <v-treeview
-                    v-model="selection"
-                    selectable
-                    selected-color="blue"
-                    :items="items"
-                    return-object
-                  ></v-treeview>
-                </v-col>
-                <v-divider vertical></v-divider>
-                <v-col class="pa-6" cols="6">
-                  <template v-if="!selection.length">
-                    No hay beneficios seleccionados. {{namePaq}},{{idPaq}}
-                  </template>
-                  <template v-else>
-                    <div v-for="node in selection" :key="node.id">
-                      {{ node.name }}
-                    </div>
-                  </template>
-                </v-col>
-              </v-row>
-            </v-container-->
+            <incluidos @arrayInIncluidos="selection=$event" />
           </v-col>
           <!--Fin FILA DE INCLUIDOS-->
 
@@ -211,42 +187,6 @@ export default {
       successShow: false,
       errorMessage: "",
       errorShow: false,
-      /*items: [
-        {
-          id: 1,
-          name: "Tiquetes",
-          children: [
-            { id: 1.1, name: "Tiquete Ida" },
-            { id: 1.2, name: "Tiquete Regreso" },
-          ],
-        },
-        {
-          id: 2,
-          name: "Alimentación",
-          children: [
-            { id: 2.1, name: "Desayuno" },
-            { id: 2.2, name: "Almuerzo" },
-            { id: 2.3, name: "Cena" },
-          ],
-        },
-        {
-          id: 3,
-          name: "N° Personas",
-          children: [
-            { id: 3.1, name: "Una Persona" },
-            { id: 3.2, name: "Dos Personas" },
-            { id: 3.3, name: "Hasta Cuatro personas" },
-          ],
-        },
-        {
-          id: 4,
-          name: "Seguro y/o Tour",
-          children: [
-            { id: 4.1, name: "Seguro" },
-            { id: 4.2, name: "Tour" },
-          ],
-        },
-      ],*/
       idPaq: null,
       namePaq: "",
       hotelPaq: "",
@@ -266,7 +206,7 @@ export default {
   methods: {
     actualizar() {
         this.idPaq = this.idPaqRoot //lleno el id con el que esta en la tabla
-      const paqI = {  //creo un objeto con lo que hay en el formulario 
+        const paqI = {  //creo un objeto con lo que hay en el formulario 
         idPaq: this.idPaq,
         namePaq: this.namePaq,
         descriptionPaq: this.descriptionPaq,
@@ -300,6 +240,7 @@ export default {
 
       let paq = salida;
       //---------------------------
+
       upDatePaq(this.idPaq, paq)// Cargo los campos modificados a la base de datos
         .then(() =>
           this.openSuccessDialog("Se ha actualizado el producto: " + this.idPaq)
