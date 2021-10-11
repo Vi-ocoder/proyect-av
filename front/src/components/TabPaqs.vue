@@ -3,6 +3,7 @@
 <v-card>
 <v-card-title>
       Paquetes Actuales
+      {{temporaly}}
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -89,25 +90,37 @@
             </v-card-actions>
           </v-card>
         </v-dialog>
+        <v-dialog v-model="dialogVerPaq" max-width="700px">
+          <v-card>
+            <div><!--ver destalles de cada paquete-->
+            <ver-paq :dialog="closeDialogVerPaq" :paq="paqRoot" :root="root"/>
+          </div>
+          </v-card>
+        </v-dialog>
       </v-toolbar>
     </template>
     <template v-slot:item.actions=" {item} ">
       <v-icon
-        small
+        color="blue"
+        class="mr-2"
+        @click="verDetallesPaq(item)"
+      >
+        mdi-eye
+      </v-icon>
+      <v-icon
+        color="green"
         class="mr-2"
         @click="editItem(item)"
       >
         mdi-pencil
       </v-icon>
       <v-icon
-        small
+        color="red"
         @click="deleteItem(item)"
       >
         mdi-delete
       </v-icon>
     </template>
-    
-      
   </v-data-table>
 </v-card>
 <v-card>
@@ -122,11 +135,15 @@
 import { getAllPaqs } from "../services/PaqsService"; //trae los datos desde la BD
 import { deletePaq } from "../services/PaqsService";
 import EditPaq from './EditPaq.vue';
+import VerPaq from './VerDetalles.vue';
   export default {
     components: {
         EditPaq,
+        VerPaq,
     },
     data: () => ({
+      root:"TabPaqs",
+      dialogVerPaq:false,
       dialog: false,
       dialogDelete: false,
       search: '',
@@ -210,39 +227,47 @@ methods: {
         this.paqRoot = this.editedItem
     },
 
-      deleteItem (idPaq) {
+    deleteItem (idPaq) {
         this.editedIndex = this.paquetes.indexOf(idPaq)
         this.editedItem = Object.assign({}, idPaq)
         this.dialogDelete = true
-      },
+    },
 
-      deleteItemConfirm () {
+    deleteItemConfirm () {
         const idPaqBorrar = this.editedItem.idPaq
         this.eliminarPaq(idPaqBorrar)
         this.closeDelete()
-      },
+    },
 
-      close () {
+    close () {
         this.dialog = false
         this.actualizarPage()
-      },
-      actualizarPage(){
+    },
+
+    actualizarPage(){
         getAllPaqs()
         .then((response) => {
           this.paquetes = response.data; //llena el array "paquetes" con los datos de la bd
           })
         .catch((err) => console.error(err));
-        }
-      },
+    },
 
-      closeDelete () {
+    closeDelete () {
         this.dialogDelete = false//no funciona desde calcel del dialogo borrar item, revisar
         //this.$nextTick(() => {
           //this.editedItem = Object.assign({}, this.defaultItem)
           //this.editedIndex = -1
         //})
-      },
-}
+    },
+    verDetallesPaq(item){
+        this.dialogVerPaq = true
+        this.paqRoot=item
+    },
+    closeDialogVerPaq(){
+      this.dialogVerPaq=false
+    },
+  },
+};
 </script>
 <style>
 .contTable{

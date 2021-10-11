@@ -227,7 +227,8 @@ export default {
     closeSuccessDialog() {
       this.successShow = "false";
     },
-    setDate(entrada) {//toma el dato "birthDate" y le retira el time
+    //toma el dato "birthDate" y le retira el time
+    setDate(entrada) {
       const salida = entrada.substring(0, 10);
       return this.dateC=salida;
     },
@@ -251,7 +252,7 @@ export default {
     okDelete(dato){
       deleteUser(dato.numberID,dato)
       .then(() => {
-        this.titleUsersList="El usuario se eliminó, actializando datos...",
+        this.titleUsersList="Usuario eliminado, actializando datos...",
         location.reload();
       })
       .catch((err) => 

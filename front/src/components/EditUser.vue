@@ -6,6 +6,13 @@
       </v-card-title>
       <v-card-title v-else> REGISTRATE CON NOSOTROS </v-card-title>
       <v-form ref="form" v-model="valid" lazy-validation class="formNewUser">
+        <v-alert
+          v-if="root=='profile'"
+          type="info" 
+        >
+        Recuerde que su e-mail y numero de documento solo pueden ser actualizados por un asesor de servicios.
+        </v-alert>
+
         <v-text-field
           v-model="Firstname"
           :counter="20"
@@ -19,23 +26,26 @@
           :placeholder="userRoot.Lastname"
           label="Apellido"
         ></v-text-field>
-
+        
+        <div v-if="root!='profile'">
         <v-text-field
           v-model="email"
           :rules="emailRules"
           label="E-mail"
           :placeholder="userRoot.email"
         ></v-text-field>
-
+        
         <v-select
+          
           v-model="select1"
           :items="typesDoc"
           label="Tipo de Documento"
           :placeholder="userRoot.select1"
         ></v-select>
-
         <v-row>
+          ´ ´
           <v-text-field
+            
             v-model="numberID"
             label="Numero de Documento"
             type="number"
@@ -48,7 +58,9 @@
             v-model="editNumDoc"
             label="Editar N° Doc"
           ></v-checkbox>
+        
         </v-row>
+        </div>
         <v-text-field
           v-model="phone"
           label="Telefono"
@@ -77,6 +89,7 @@
         ></v-text-field>
 
         <v-select
+          v-if="root!='profile'"
           v-model="typeUser"
           :items="typesUser"
           label="Tipo de usuario"
@@ -91,7 +104,7 @@
         <!-- snackbar para cuando se actualiza ok -->
         <success-message
           :message="successMessage"
-          :root="root"
+          :root="rootOut"
           :snackbar="successShow"
           :close="close"
         />
@@ -116,15 +129,14 @@ export default {
     SuccessMessage,
     errorMessage,
   },
-  props: ["userRoot"],
+  props: ["userRoot", "root"],
   data: () => ({
     editNumDoc: false,
     errorMessage: "",
     errorShow:false,
     successMessage: "",
-    root: "EditUser",
+    rootOut: "EditUser",
     successShow: false,
-    editado: "¿Todo listo para guardar?...",
     Firstname: "",
     Lastname: "",
     email: "",

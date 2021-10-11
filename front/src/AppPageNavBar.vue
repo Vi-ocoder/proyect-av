@@ -54,7 +54,7 @@
               <v-avatar size="90">
                 <v-img :src="this.foto "></v-img>
               </v-avatar>
-              <p class="pt-2"> Bienvenido: </p> 
+              <p class="pt-2"> Bienvenido: {{root}}</p> 
             </div>
 
           </v-list-item-title>
@@ -109,18 +109,27 @@
         </div>
       </template>
     </v-navigation-drawer>
-
+    <profile :nombre="nom" v-if="root=='profiles'" /><!--solucionar la vista-->
   </v-main>
 </template>
 
 
 
 <script>
+import profile from "./views/users/profile.vue";
 
-
-export default ({
+export default {
+  props:["root"],
+  components:{
+    profile,
+  },
   data () {
       return {
+        //--esto lo usa victor--
+        root2:"-",
+        nom:"Andres",
+        email:"",
+        //----------------
         drawer: null,
         value:'',
         // role: "admin",
@@ -129,13 +138,15 @@ export default ({
         adminRoute: [
           { title: 'Gestión paquetes', icon: 'fas fa-luggage-cart', link:'/tabPaqs'},
           { title: 'Gestión usuarios', icon: 'fas fa-users', link:'/infoUsers'},
+          { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
         userRoute: [
           { title: 'Mis reservas', icon: 'fas fa-plane', link:'' },
-          { title: 'Cuenta', icon: 'fas fa-user', link:'' },
+          { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
         asesorRoute:[
          { title: 'Gestión usuarios', icon: 'fas fa-users', link:'/infoUsers'},
+         { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
       }
     },
@@ -146,6 +157,7 @@ export default ({
     this.nom = sessionStorage.getItem("nombre");
     this.ape = sessionStorage.getItem("apellido");
     this.foto = sessionStorage.getItem("foto");
+    this.root2=this.root
 
     if(this.email === '' || this.role ===''){
       this.drawer = false;
@@ -177,5 +189,5 @@ export default ({
       
     },
   },
-})
+};
 </script>

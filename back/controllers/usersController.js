@@ -28,6 +28,21 @@ module.exports = class UsersController {
 
         }
     }
+    static async getByEmail(req, res) {
+        const email = req.params.email;
+        try {
+            const user = await userModel.findOne({ "email": email });
+            if (user != null) {
+                res.status(200).json(user);
+            } else {
+                res.status(404).json();
+            }
+
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+
+        }
+    }
 
     static async insertUser(req, res) {
         try {
