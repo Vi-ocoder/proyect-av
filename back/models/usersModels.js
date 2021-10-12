@@ -13,6 +13,7 @@ const userSchema = mongoose.Schema({
     "birthDate": Date,
     "password": String,
     "reservar": Array,
+
 });
 
 module.exports = mongoose.model("User", userSchema);

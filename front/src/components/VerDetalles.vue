@@ -26,7 +26,12 @@
         <v-row>
           <v-col lang="auto" cols="6" v-for="item in paq.Incluidos" :key="item">
             <v-list-item>
-              <v-list-item-subtitle color="red" v-if="item.id == 'a' || item.id == 'b' || item.id == 'c'"> *Incluido en paquete para {{item.name}}</v-list-item-subtitle>
+              <v-list-item-subtitle 
+              color="red" 
+              v-if="item.id == 'a' || item.id == 'b' || item.id == 'c'"
+              > 
+              *...todo para {{item.name}}
+              </v-list-item-subtitle>
               <v-list-item-avatar v-if="item.id!='a' && item.id!='b' && item.id!='c'">
                 <v-icon
                   class="green"
@@ -62,7 +67,7 @@
     </v-row>
     <v-card-actions v-if="(root == 'TabPaqs')">
       <v-spacer></v-spacer>
-      <v-btn id="btnClose" color="rgba(1, 1, 1, .1)" relative @click="dialog()">
+      <v-btn id="btnClose" fab small color="rgba(200, 200, 200, .3)" relative @click="dialog()">
         X
       </v-btn>
     </v-card-actions>
@@ -107,8 +112,10 @@ export default {
   font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
 }
 #btnClose {
-  bottom: 550px;
+  bottom: 535px;
   right: 350px;
   position: fixed;
+  font-size: 130%;
+  font-family: "Exo2", sans-serif ;
 }
 </style>

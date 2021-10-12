@@ -54,7 +54,7 @@
               <v-avatar size="90">
                 <v-img :src="this.foto "></v-img>
               </v-avatar>
-              <p class="pt-2"> Bienvenido: {{root}}</p> 
+              <p class="pt-2"> Bienvenido:</p> 
             </div>
 
           </v-list-item-title>
@@ -109,27 +109,17 @@
         </div>
       </template>
     </v-navigation-drawer>
-    <profile :nombre="nom" v-if="root=='profiles'" /><!--solucionar la vista-->
   </v-main>
 </template>
 
 
 
 <script>
-import profile from "./views/users/profile.vue";
-
 export default {
-  props:["root"],
   components:{
-    profile,
   },
   data () {
       return {
-        //--esto lo usa victor--
-        root2:"-",
-        nom:"Andres",
-        email:"",
-        //----------------
         drawer: null,
         value:'',
         // role: "admin",

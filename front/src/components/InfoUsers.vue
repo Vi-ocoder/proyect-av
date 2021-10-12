@@ -20,6 +20,12 @@
         hide-details
         v-on:keypress="usersSearch(usersOrigin)"
       ></v-text-field>
+      <v-alert
+        v-if="search!=''"
+        type="info"
+      >
+      Recuerde: Debe ingresar el primer nombre o el # de documento del usuraio, luego oprima enter (si no genera datos intente poner un espacio luego al final antes de oprimir enter)
+      </v-alert>
   
         <v-divider></v-divider>
         <v-virtual-scroll item-height="70" height="300" :items="users">
@@ -37,8 +43,13 @@
               color="warning"
               v-if="item.typeUser == 'Admin'"
               >
-              <v-avatar size="56">
-                <v-img :src="item.photo"></v-img>
+              <v-avatar v-if="item.photo!=undefined" size="56">
+                <v-img  :src="item.photo"></v-img>
+              </v-avatar>
+              <v-avatar v-if="item.photo==undefined" size="56">
+                <v-img v-if="item.select2=='Femenino'" src="../../public/images/Avatar_Default/avatar-mujer.jpg"></v-img>
+                <v-img v-if="item.select2=='Masculino'" src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+                <v-img esle src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
               </v-avatar>
             </v-badge>
             <!--Esto si el usuario es asesor-->
@@ -50,9 +61,15 @@
               color="green"
               v-if="item.typeUser == 'Asesor'"
               >
-              <v-avatar size="56">
-                <v-img :src="item.photo"></v-img>
+              <v-avatar v-if="item.photo!=undefined" size="56">
+                <v-img  :src="item.photo"></v-img>
               </v-avatar>
+              <v-avatar v-if="item.photo==undefined" size="56">
+                <v-img v-if="item.select2=='Femenino'" src="../../public/images/Avatar_Default/avatar-mujer.jpg"></v-img>
+                <v-img v-if="item.select2=='Masculino'" src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+                <v-img esle src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+              </v-avatar>
+
             </v-badge>
             <!--Esto si el usuario es cliente-->
             <v-badge
@@ -63,8 +80,13 @@
               color="blue"
               v-if="item.typeUser == 'Cliente'"
               >
-              <v-avatar size="56">
-                <v-img :src="item.photo"></v-img>
+              <v-avatar v-if="item.photo!=undefined" size="56">
+                <v-img  :src="item.photo"></v-img>
+              </v-avatar>
+              <v-avatar v-if="item.photo==undefined" size="56">
+                <v-img v-if="item.select2=='Femenino'" src="../../public/images/Avatar_Default/avatar-mujer.jpg"></v-img>
+                <v-img v-if="item.select2=='Masculino'" src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+                <v-img esle src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
               </v-avatar>
             </v-badge>
               <v-list-item-content>
@@ -116,8 +138,13 @@
         <div v-if="selected != ''">
           <v-card class="pt-6 mx-auto" flat max-width="400"  >
             <v-card-text>
-              <v-avatar size="150" rounded="circle">
-                <v-img :src="selected.photo"></v-img>
+              <v-avatar v-if="selected.photo!=undefined" size="150" rounded="circle">
+                <v-img  :src="selected.photo"></v-img>
+              </v-avatar>
+              <v-avatar v-else size="150">
+                <v-img v-if="selected.select2=='Femenino'" src="../../public/images/Avatar_Default/avatar-mujer.jpg"></v-img>
+                <v-img v-if="selected.select2=='Masculino'" src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+                <v-img esle src="../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
               </v-avatar>
               <h3 class="text-h5 mb-0">
                 {{ selected.Firstname }} {{ selected.Lastname }}
@@ -173,7 +200,13 @@
           </template>
         </div>
       </v-col>
+      <!--aqui van los snakcbar-->
       <warning-msj :snackbar="snackDelete" :message="msjBorrar" :close="closeDelete" :ok="okDelete" :dato="userToDelete"/>
+      <error-message
+          :message="errorMessage"
+          :snackbar="errorShow"
+          :close="closeError"
+        />
       <v-divider vertical></v-divider>
     </v-row>
   </v-container>
@@ -185,16 +218,20 @@ import { getAllUsers } from "../services/UsersService"; //trae los datos desde l
 import { deleteUser } from "../services/UsersService"; 
 import warningMsj from "./warningMsj.vue";
 import EditUser from "./EditUser.vue";
+import errorMessage from "./ErrorMsj.vue";
 export default {
   components: {
     EditUser,
     warningMsj,
+    errorMessage
   },
   data: () => ({
     //para borrar usuario
+    errorMessage:"",
     snackDelete:false,
     msjBorrar:"",
     userToDelete:[],
+    errorShow:false,
     //------
     search:"",
     dateC:"",
@@ -249,20 +286,37 @@ export default {
       return this.users=salida
     },
     //borra el usuario seleccionado
-    okDelete(dato){
-      deleteUser(dato.numberID,dato)
+    okDelete(user){
+      deleteUser(user.numberID,user)
       .then(() => {
         this.titleUsersList="Usuario eliminado, actializando datos...",
         location.reload();
       })
       .catch((err) => 
-      this.titleUsersList= err);
+      this.openErrorDialog(this.mensajeError(err)));
+    },
+    openErrorDialog(mensaje) {
+      this.errorMessage = mensaje;
+      this.errorShow = true;
+      this.snackDelete = false;
     },
     eliminarUsuario(user){
       this.snackDelete=true
       this.msjBorrar="Desea borrar a "+user.Firstname+" definitivamente?"
       this.userToDelete=user
     },
+    mensajeError(entrada) {
+      let salida =
+        "Error al eliminar, verifique los datos e intente nuevamente";
+      if (entrada == "Error: Request failed with status code 400") {
+        salida = "Este usuario no tiene # de documento, debe ser eliminado directamente desde la BD";
+      }
+      return salida;
+    },
+    closeError() {
+      this.errorShow = false
+    },
+    //-----------------------
     closeDelete(){
       this.snackDelete=false
     },

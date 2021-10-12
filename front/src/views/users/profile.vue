@@ -54,7 +54,7 @@
             <v-btn @click="dialog=true">Actualizar</v-btn>
             <v-dialog v-model="dialog" width="60%">
               <v-card width="auto">
-              <editar-usuario :userRoot="userLogged" :root="root"/>
+              <editar-usuario :userRoot="userLogged" :root="rootOut"/>
               </v-card>
             </v-dialog>
           </v-card>
@@ -74,7 +74,7 @@
           -  Asesor: Acceso a editar clientes registrados (no debe poder modificar el campo TIPO DE CLIENTE ya que este solo lo puede modificar el admin) y gestion de reservas
         </p>
         <p>
-          -  Admin: Acceso a editar clientes, paquetes y gestionar reservas
+          -  Admin: Acceso a editar clientes, paquetes y gestionar reservas; modificar terminos de uso etc
         </p>
       </v-card>
       </v-col>
@@ -92,13 +92,12 @@ export default {
   },
   data: () => ({
     dialog:false,
-    email:"marienqueen@gmail.com",
-    rootOut:"profile",//envia al nav este dato para que se habilite el componente <profile>
+    email:"",
+    rootOut:"profile",//envia este dato a los componentes
     search:"",
     dateC:"",
     userLogged: [],
     usersOrigin:[],
-    root:"profile"
   }),
   watch: {},
   mounted() {
@@ -120,7 +119,6 @@ export default {
     },
     //saca el birthDate del objeto seleccionado
     getuserLogged(usuario) {
-      this.userLogged = usuario;
       this.setDate(usuario.birthDate)
     },
     //cambia los datos a mostrar cuando se busca un usuario en particular

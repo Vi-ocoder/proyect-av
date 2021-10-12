@@ -19,7 +19,7 @@
     :items="paquetes"
     :search="search"
     sort-by="idPaq"
-    class="elevation-1"
+    class="elevation-1 myTable"
   >
   <!--poner color a los item segun tenga o no dcto-->
     <template v-slot:item.idPaq="{ item }" >
@@ -273,8 +273,6 @@ methods: {
 .contTable{
   position: relative;
   width: 100%;
-  background: center;
-  /*background-image: url("https://www.hotelescosmos.com/uploads/galeriahoteles/-DUF7173Dok.jpg");
-*/
+  font-family: "Exo2", sans-serif ;
 }
 </style>

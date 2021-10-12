@@ -47,6 +47,10 @@ module.exports = class UsersController {
     static async insertUser(req, res) {
         try {
             let user = req.body;
+            if (req.file != undefined) {
+                const photoName = req.file.filename;
+                user.photo = "/" + photoName
+            }
             user = await userModel.create(user);
             user.password = undefined;
             res.status(201).json(user);
@@ -59,6 +63,10 @@ module.exports = class UsersController {
         try {
             const numberID = req.params.numberID;
             const user = req.body;
+            if (req.file != undefined) {
+                const photoName = req.file.filename;
+                user.photo = "/" + photoName
+            }
             const newUser = await userModel.updateOne({ "numberID": numberID }, user);
             res.status(200).json(newUser);
         } catch (err) {
@@ -75,16 +83,7 @@ module.exports = class UsersController {
             res.status(400).json({ message: err.message });
         }
     }
-    static async insert(req, res) { //esta es para rectificar isertUser
-        try {
-            let user = req.body;
-            user = await userModel.create(user);
-            user.password = undefined;
-            res.status(201).json(user);
-        } catch (err) {
-            res.status(400).json({ "message": err.message })
-        }
-    }
+
 
     static async validateUser(req, res) {
         try {
