@@ -146,7 +146,7 @@ export default {
           { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
         userRoute: [
-          { title: 'Mis reservas', icon: 'fas fa-plane', link:'' },
+          { title: 'Mis reservas', icon: 'fas fa-plane', link:'/my-reservations' },
           { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
         asesorRoute:[

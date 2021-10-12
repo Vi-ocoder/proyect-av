@@ -18,7 +18,8 @@
       </v-stepper-header>
 
       <v-stepper-items>
-
+        
+        <!-- datos del paquete a reservar  -->
         <v-stepper-content step="1">
           <v-card class="mb-12" color="indigo lighten-5" height="auto"> 
             
@@ -29,7 +30,7 @@
                     <tbody>
                       <tr>
                         <td><b> Nombre: </b> </td>
-                        <td> {{ paquete.namePaq }}</td>
+                        <td> {{ paquete.namePaq }}   </td>
                       </tr>
                       <tr>
                         <td> <b> Hospedaje: </b>   </td>
@@ -60,7 +61,7 @@
           <v-btn color="primary" @click="e1 = 2">Continue</v-btn>
         </v-stepper-content>
 
-
+        <!-- datos del cliente  -->
         <v-stepper-content step="2">
           <v-card class="mb-12" color="indigo lighten-5" height="auto">
 
@@ -71,7 +72,7 @@
                       <tbody>
                         <tr>
                           <td> <b> Nombres: </b> </td>
-                          <td> {{this.UsrNombre }} </td>
+                          <td> {{this.UsrNombre }}  </td>
                         </tr>
                         <tr>
                           <td> <b> Apellidos: </b>   </td>
@@ -108,7 +109,7 @@
           <v-btn text @click="e1 = 1">Atras</v-btn>
         </v-stepper-content>
 
-
+        <!-- pago de la reserva  -->
         <v-stepper-content step="3">
           <v-card class="mb-12" color="indigo lighten-5" height="auto">
             <div class="pa-5 row">
@@ -140,18 +141,29 @@
                     </tbody>
                   </template>
                 </v-simple-table>
+                <br>
+                Aceptamos las siguientes formas de pago: <br>
+                <div class="float-left">
+                    <v-img class="mx-auto"  max-height="200" max-width="250" 
+                      src="../../public/images/pagina/formasPago.png">
+                    </v-img>
+                </div>
+                
               </div>
 
               <div class="col-md-7">
                 <v-expansion-panels v-model="panel">
                   <v-expansion-panel active-class>
-                    <v-expansion-panel-header> Pagar con tarjeta </v-expansion-panel-header>
+                    <v-expansion-panel-header>  <b> Pagar con tarjeta </b> </v-expansion-panel-header>
+
                     <v-expansion-panel-content>
-      
-                      <v-form v-model="valid">
+                      <v-form v-model="valid" ref="form" v-on:submit.prevent="pagarTarjeta();">
+
+                        <input type="hidden" v-model="idPaquete" />
+                        <input type="hidden" v-model="totalPago" />
+
                         <v-container>
                           <v-row>
-
                             <v-col cols="12" md="12">
                               <v-text-field type="number" v-model="tarjeta" label="N° tarjeta" required 
                                 outlined dense prepend-icon="fas fa-credit-card">
@@ -177,8 +189,20 @@
                             </v-col>
                             <v-col cols="12" md="6"></v-col>
                             <v-col cols="12" md="4">
-                              <v-btn depressed color="primary"> Pagar </v-btn>
+                              <v-btn depressed color="primary" 
+                                :disabled="valid == 'true'"
+                                type="submit"
+                              > 
+                                Pagar 
+                                <template v-slot:loader>
+                                  <span>Loading...</span>
+                                </template>
+                              </v-btn>
                             </v-col>
+
+                            <div class="col-md-8 d-flex justify-end">
+                              <v-img max-height="30" max-width="150" src="../../public/images/pagina/tarjetaC.png"></v-img>
+                            </div>
                           </v-row>
                         </v-container>
                       </v-form>
@@ -187,13 +211,14 @@
                   </v-expansion-panel>
 
                   <v-expansion-panel>
-                    <v-expansion-panel-header> PSE </v-expansion-panel-header>
+                    <v-expansion-panel-header> <b> Pagar por PSE </b> </v-expansion-panel-header>
                     <v-expansion-panel-content>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                     </v-expansion-panel-content>
                   </v-expansion-panel>
                 </v-expansion-panels>
               </div>
+
             </div>
             
              
@@ -202,10 +227,33 @@
           <v-btn text @click="e1 = 2">Atras</v-btn>
         </v-stepper-content>
 
+        <!-- confirmacion de pago realizado  -->
         <v-stepper-content step="4">
-          <v-card class="mb-12" color="indigo lighten-5" height="200px"></v-card>
-          <v-btn color="primary" @click="e1 = 4">Continue</v-btn>
-          <v-btn text @click="e1 = 3">Atras</v-btn>
+          <v-card class="mb-12" color="light-green darken-1" height="auto">
+            <div class="flex text-center pa-5 white--text">
+                <v-icon x-large color="white">far fa-check-circle</v-icon>
+                <h1>Su pago se ha completado correctamente</h1>
+                <br>
+                <v-simple-table>
+                  <template>
+                    <tbody>
+                      <tr>
+                        <td> <b> Numero factura: </b>   </td>
+                        <td> <b> {{ numFactura }} </b> </td>
+                      </tr>
+                    </tbody>
+                  </template>
+                </v-simple-table>
+                <br>
+                <p> Puede verificar el estado de la reserva desde el menú de opciones,  <a href=""> Mis reservas.</a>  </p>
+            </div>
+
+           
+             
+              
+
+          </v-card>
+          <v-btn color="primary" to="/travels"> Finalizar </v-btn>
         </v-stepper-content>
 
       </v-stepper-items>
@@ -217,14 +265,27 @@
 
 <script>
 
+  import { insertReservation } from "../services/ReservationService";
+
   export default {
     props:["id", "paquete"],
     data () {
       return {
         e1: 1,
+        valid:false,
+        loader: null,
+        loading2: false,
 
         //Numero del panel que inicia activo
         panel:0, 
+        tarjeta:null,
+        mes:null,
+        anio:null,
+        codigoS:null,
+        idPaquete: null,
+        totalPago:null,
+        numFactura:null,
+
 
         //Datos del usuario logeado
         UsrNombre:'',
@@ -242,6 +303,50 @@
       this.UsrTelefono = sessionStorage.getItem("telefono");
       this.UsrCedula = sessionStorage.getItem("identificacion");
       this.UsrCedulaNum = sessionStorage.getItem("numeroIdentificacion");
-    }
+
+      this.idPaquete= this.paquete._id;
+      this.totalPago = this.paquete.valuePaq;
+    },
+
+    methods:{
+
+      pagarTarjeta(){
+
+        console.log(this.valid);
+        this.valid= "true";
+
+        const reserva = {
+          idPaq: this.idPaquete,
+          idCliente: this.UsrCedulaNum,
+          fechaPago: new Date(), 
+          formaPago: "Tarjeta Credito",
+          totalPago: this.totalPago,
+          Estado: "Pendiente",
+        };
+
+         setTimeout(() => 
+            this.valid = "false", 5000,  //Simulacion de tiempo de espera
+          ),
+
+        insertReservation(reserva).then((response) => {
+          const data  = response.data;
+          this.numFactura = data._id;
+          
+          setTimeout(() => 
+            this.e1 = 4, 5000,
+          )
+        })
+        .catch((err) => {
+            console.log(err.message);
+          }
+        );
+ 
+
+        
+      },
+
+
+
+    },
   }
 </script>

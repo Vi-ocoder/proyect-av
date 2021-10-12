@@ -135,6 +135,13 @@ const routes = [{
         component: () =>
             import ( /*  */ '../views/users/profile.vue')
     },
+
+    {
+        path: '/my-reservations',
+        name: 'my-reservations',
+        component: () =>
+            import ( /*  */ '../views/users/reservations.vue')
+    },
 ]
 
 const router = new VueRouter({

@@ -1,6 +1,8 @@
 const express = require("express");
 const PaqsController = require("../controllers/paqsController")
 const UsersController = require("../controllers/usersController")
+const ReservationsController = require("../controllers/reservationsController")
+
 
 const router = express.Router();
 
@@ -19,5 +21,10 @@ router.post("/users", UsersController.insertUser);
 router.delete("/users/:numberID", UsersController.deleteUser);
 router.put("/users/:numberID", UsersController.upDateUser);
 router.post("/authenticate", UsersController.validateUser);
+
+
+//Rutas de reservas
+router.post("/reservations", ReservationsController.insert);
+
 
 module.exports = router;
