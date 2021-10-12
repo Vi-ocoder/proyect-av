@@ -108,11 +108,17 @@ export default {
       validateUser(this.email, this.password)
       .then((response) =>{
         const user= response.data;
+
         sessionStorage.setItem("email", user.email);
         sessionStorage.setItem("role", user.typeUser);
         sessionStorage.setItem("nombre", user.Firstname);
         sessionStorage.setItem("apellido", user.Lastname);
         sessionStorage.setItem("foto", user.photo);
+
+        sessionStorage.setItem("telefono", user.phone);
+        sessionStorage.setItem("identificacion", user.select1);
+        sessionStorage.setItem("numeroIdentificacion", user.numberID);
+
 
         this.drawer = true;
         this.$emit("logged", undefined);

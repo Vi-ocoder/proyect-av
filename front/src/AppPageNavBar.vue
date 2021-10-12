@@ -118,14 +118,19 @@
 <script>
 import profile from "./views/users/profile.vue";
 
+
+
+
 export default {
+
   props:["root"],
   components:{
     profile,
   },
   data () {
       return {
-        //--esto lo usa victor--
+        // --esto lo usa victor-
+        cuenta:null,
         root2:"-",
         nom:"Andres",
         email:"",
@@ -181,6 +186,11 @@ export default {
       sessionStorage.setItem("role", '');
       sessionStorage.setItem("nombre", '');
       sessionStorage.setItem("apellido", '');
+
+      sessionStorage.setItem("telefono", '');
+      sessionStorage.setItem("identificacion", '');
+      sessionStorage.setItem("numeroIdentificacion", '');
+
       this.drawer = false;
       
       this.$emit("loggout", undefined);

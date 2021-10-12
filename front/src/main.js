@@ -7,7 +7,10 @@ import vuetify from './plugins/vuetify'
 //Archivo vue pag.principal
 import AppPage from './AppPage.vue'
 
+
+
 Vue.config.productionTip = false
+
 
 new Vue({
   router,
