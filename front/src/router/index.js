@@ -51,6 +51,14 @@ const routes = [{
         beforeEnter: routeGuard,    //Ejecuta este codigo antes de mostrar el Componente ligado a esta ruta.
     },
     {
+        path: '/my-reservations/:id',
+        name: 'my-reservations',
+        props: true, 
+        beforeEnter: routeGuard,
+        component: () => import ( /*  */ '../views/users/reservations.vue')
+    },
+
+    {
         path: '/tabPaqs',
         name: 'Tabla Paquetes',
         component: () =>
@@ -136,12 +144,6 @@ const routes = [{
             import ( /*  */ '../views/users/profile.vue')
     },
 
-    {
-        path: '/my-reservations',
-        name: 'my-reservations',
-        component: () =>
-            import ( /*  */ '../views/users/reservations.vue')
-    },
 ]
 
 const router = new VueRouter({
