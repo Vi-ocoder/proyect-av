@@ -135,7 +135,7 @@
                   color="green darken-3"
                   text
                   @click="reserve"
-                  to = "/ReservarPaq"
+                  :to= "{ name: 'ReservarPaq', params: {id: paq.idPaq, paquete: paq }}"
                 >
                   RESERVAR
                 </v-btn>

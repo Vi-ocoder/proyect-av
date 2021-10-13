@@ -245,7 +245,8 @@
                   </template>
                 </v-simple-table>
                 <br>
-                <p> Puede verificar el estado de la reserva desde el menú de opciones,  <a href=""> Mis reservas.</a>  </p>
+                <p> Puede verificar el estado de la reserva desde el menú de opciones:   
+                  <v-btn to="/my-reservations"> Mis reservas.</v-btn>  </p>
             </div>
 
            
