@@ -7,7 +7,7 @@
       <v-card-title v-else> REGISTRATE CON NOSOTROS </v-card-title>
       <v-form ref="form" v-model="valid" lazy-validation class="formNewUser">
         <v-alert
-          v-if="root=='profile'"
+          v-if="root=='Cliente'"
           type="info" 
         >
         Recuerde que su e-mail y numero de documento solo pueden ser actualizados por un asesor de servicios.
@@ -100,19 +100,30 @@
             </v-col>
         </v-row>
 
-        <v-select
-          v-if="root!='profile'"
+        <v-row v-if="root!='Cliente' && root!='Asesor'">
+        <v-select 
           v-model="typeUser"
           :items="typesUser"
           label="Tipo de usuario"
-          :placeholder="userRoot.typesUser"
-        ></v-select>
-        
-          <v-btn :disabled="!valid" color="success" class="mr-4" @click="upDate">
+          :disabled="!editTypeUser"
+        ></v-select>    
+        <v-checkbox
+          v-model="editTypeUser"
+          label="¿Cambiar tipo de usuario?">
+        </v-checkbox>
+        </v-row>
+        <v-alert
+          v-if="typeUser=='Cliente' || typeUser=='Asesor'"
+          type="error" 
+        >
+        Si cambia este dato ya no será Administrador, perderá los permisos que ahora posee.
+        </v-alert>
+          <br>
+          <v-btn :disabled="!valid" color="primary" class="mr-4" @click="upDate">
             Actualizar
           </v-btn>
         
-        <v-btn color="error" class="mr-4" @click="reset"> LIMPIAR </v-btn>
+        <v-btn color="secondary" class="mr-4" @click="reset"> LIMPIAR </v-btn>
         <!-- snackbar para cuando se actualiza ok -->
         <success-message
           :message="successMessage"
@@ -147,6 +158,7 @@ export default {
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],
     editNumDoc: false,
+    editTypeUser: false,
     errorMessage: "",
     errorShow:false,
     successMessage: "",

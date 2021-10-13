@@ -59,7 +59,7 @@
         <v-divider></v-divider>
         <br>
         <h2 class="mb-4 text-center"> Todo lo que necesitas en un mismo lugar </h2>
-        <vista-rapida />
+        <vista-rapida :root="outRoot" />
         <br><br><br>
       </v-container>
     </v-main>
@@ -73,6 +73,7 @@ import vistaRapida from "../../components/carruselHome.vue";
     vistaRapida,
   },
     data: () => ({ 
+      outRoot:"Home",
       drawer: null,
       value: 'home' // Donde quiero que inicie pintado el selector del menu v-bottom-navigation
      }),

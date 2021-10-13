@@ -1,7 +1,7 @@
 <template>
 
   <v-main>
-
+   
     <!-- barra de navegacion -->
     <v-bottom-navigation v-model="value" :value="value" fixed color="primary">
 
@@ -11,7 +11,6 @@
 
         <v-icon>fas fa-home</v-icon>
       </v-btn>
-
       <!-- paquetes  -->
       <v-btn value="travels"  to="/travels" style="height: inherit; background-color: transparent;">
         <span>Paquetes</span>
@@ -35,7 +34,7 @@
         <v-btn value="account" v-if="isLoggedIn" @click.stop="drawer = !drawer"  
           style="height: inherit; background-color: transparent; color:rgba(0, 0, 0, 0.6) !important;" 
         >
-          <span>Cuenta</span>    
+          <span>Perfil</span>    
           <v-icon>fas fa-user</v-icon>
         </v-btn>
       <!-- </router-link> -->
@@ -120,7 +119,7 @@ export default {
   },
   data () {
       return {
-        drawer: null,
+        drawer:false,
         value:'',
         // role: "admin",
         role: '',
@@ -149,10 +148,10 @@ export default {
     this.foto = sessionStorage.getItem("foto");
     this.root2=this.root
 
-    if(this.email === '' || this.role ===''){
-      this.drawer = false;
-    }else{
+    if(this.email != '' && this.role !=''&&this.email != undefined && this.role != undefined &&this.email != null && this.role != null){//elimina el error del inicio
       this.drawer = true;
+    }else{
+      this.drawer = false;
     }
   },
   computed:{
@@ -178,6 +177,7 @@ export default {
       window.location.reload();
       
     },
+    //para cambiar el drawer desde el perfil
   },
 };
 </script>

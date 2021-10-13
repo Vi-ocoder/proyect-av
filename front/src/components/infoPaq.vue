@@ -5,6 +5,13 @@
     flat
   >
     <v-img
+      v-if="otherRoot=='ClienteResources'"
+      :src="paq.imagePaq"
+      height="200px"
+    ></v-img>
+    
+    <v-img
+      v-else
       :src="paq.imagePaq"
       height="400px"
     ></v-img>
@@ -57,7 +64,7 @@
 
 <script>
   export default {
-    props:["paq","dialog"],
+    props:["paq","dialog","otherRoot"],
     data: () => ({
       show: false,
     }),
