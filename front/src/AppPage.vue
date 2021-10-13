@@ -15,8 +15,10 @@
 <script>
 
 import NavigaComponent from './AppPageNavBar.vue'
+const hasEnter= null; //varaible global
 
   export default {
+    hasEnter,
     data: () => ({ 
       drawer: null,
       value: 'home' // Donde quiero que inicie pintado el selector del menu v-bottom-navigation

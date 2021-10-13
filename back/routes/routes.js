@@ -1,6 +1,7 @@
 const express = require("express");
 const PaqsController = require("../controllers/paqsController");
 const UsersController = require("../controllers/usersController");
+const ReservationsController = require("../controllers/reservationsController");
 
 //carga de archivos
 const multer = require("multer");
@@ -14,6 +15,8 @@ const storageConfig = multer.diskStorage({
 });
 
 const upload = multer({ storage: storageConfig });
+
+
 
 const router = express.Router();
 
@@ -33,5 +36,10 @@ router.post("/users", upload.single("photo"), UsersController.insertUser);
 router.delete("/users/:numberID", UsersController.deleteUser);
 router.put("/users/:numberID", upload.single("photo"), UsersController.upDateUser);
 router.post("/authenticate", UsersController.validateUser);
+
+
+//Rutas de reservas
+router.post("/reservations", ReservationsController.insert);
+
 
 module.exports = router;

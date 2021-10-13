@@ -11,6 +11,22 @@ import Contactus from '../views/webPage/Contactus.vue'
 
 Vue.use(VueRouter)
 
+
+//Constante con funcion para validar si el usuario en uso esta logeado en la pagina.
+//Si esta logeado permite el ingreso a la vista de la ruta, caso contrario redirige al inicio.
+const routeGuard = (to, from, next) => {
+    let isAuthenticated = false;
+    if (sessionStorage.getItem("email")) {
+      isAuthenticated = true;
+    }
+  
+    if (isAuthenticated) {
+      next();
+    } else {
+      next("/");
+    }
+};
+
 const routes = [{
         path: '/crear-paquete',
         name: "Crear Paquete",
@@ -28,9 +44,11 @@ const routes = [{
         component: VerDetalles
     },
     {
-        path: '/ReservarPaq',
+        path: '/ReservarPaq/:id',
         name: 'ReservarPaq',
-        component: ReservarPaq
+        component: ReservarPaq,
+        props: true,                //esta ruta queda habilitada para recibir props
+        beforeEnter: routeGuard,    //Ejecuta este codigo antes de mostrar el Componente ligado a esta ruta.
     },
     {
         path: '/tabPaqs',
@@ -116,6 +134,13 @@ const routes = [{
         name: 'Profile',
         component: () =>
             import ( /*  */ '../views/users/profile.vue')
+    },
+
+    {
+        path: '/my-reservations',
+        name: 'my-reservations',
+        component: () =>
+            import ( /*  */ '../views/users/reservations.vue')
     },
 ]
 

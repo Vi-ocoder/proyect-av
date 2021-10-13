@@ -135,7 +135,7 @@
                   color="green darken-3"
                   text
                   @click="reserve"
-                  to = "/ReservarPaq"
+                  :to= "{ name: 'ReservarPaq', params: {id: paq.idPaq, paquete: paq }}"
                 >
                   RESERVAR
                 </v-btn>
@@ -223,7 +223,7 @@
                   </v-dialog>
                 </v-row>
                 <!--fin del dialogo ver detalles-->
-                <v-btn color="green darken-3" text @click="reserve" to= "/ReservarPaq" >
+                <v-btn color="green darken-3" text :to= "{ name: 'ReservarPaq', params: {id: paq.idPaq, paquete: paq }}" >
                   RESERVAR
                 </v-btn>
               </v-card-actions>

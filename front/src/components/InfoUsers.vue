@@ -131,6 +131,7 @@
       </v-col>
       <v-divider vertical></v-divider>
       <!--vista de los datos del usuario seleccionado-->
+      
       <v-col class="pa-6 d-flex text-center" cols="6" >
         <div v-if="selected == ''">
           Seleccione un usuario

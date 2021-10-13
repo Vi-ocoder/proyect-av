@@ -115,11 +115,18 @@
 
 <script>
 export default {
+
+  props:["root"],
   components:{
   },
   data () {
       return {
-        drawer:false,
+        // --esto lo usa victor-
+        cuenta:null,
+        nom:"Andres",
+        email:"",
+        //----------------
+        drawer: null,
         value:'',
         // role: "admin",
         role: '',
@@ -130,7 +137,7 @@ export default {
           { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
         userRoute: [
-          { title: 'Mis reservas', icon: 'fas fa-plane', link:'' },
+          { title: 'Mis reservas', icon: 'fas fa-plane', link:'/my-reservations' },
           { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
         ],
         asesorRoute:[
@@ -146,7 +153,6 @@ export default {
     this.nom = sessionStorage.getItem("nombre");
     this.ape = sessionStorage.getItem("apellido");
     this.foto = sessionStorage.getItem("foto");
-    this.root2=this.root
 
     if(this.email != '' && this.role !=''&&this.email != undefined && this.role != undefined &&this.email != null && this.role != null){//elimina el error del inicio
       this.drawer = true;
@@ -170,6 +176,11 @@ export default {
       sessionStorage.setItem("role", '');
       sessionStorage.setItem("nombre", '');
       sessionStorage.setItem("apellido", '');
+
+      sessionStorage.setItem("telefono", '');
+      sessionStorage.setItem("identificacion", '');
+      sessionStorage.setItem("numeroIdentificacion", '');
+
       this.drawer = false;
       
       this.$emit("loggout", undefined);

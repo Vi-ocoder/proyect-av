@@ -7,7 +7,7 @@
       <!--Pongo un campo para iniciar sesion en el home-->
       <v-col lg="6" sm="12">
         <v-card heigth="620" v-if="isLogged!=''" >
-          <carrusel-paqs-promo />
+          <calendario/>
         </v-card>
         <v-card heigth="620" v-else>
           <login />
@@ -19,12 +19,12 @@
 <script>
 import CarruselPaqs from "./CarruselPaqs.vue";
 import login from "../views/webPage/Login.vue";
-import CarruselPaqsPromo from './CarruselPaqsPromo.vue';
+import Calendario from './Profile/Calendario.vue';
 export default {
   components: {
     CarruselPaqs,
     login,
-    CarruselPaqsPromo,
+    Calendario,
   },
   data() {
     return {
