@@ -42,12 +42,20 @@
             />
           </v-col>
 
-          <v-col cols="12" md="6">
+          <v-col cols="4" md="6">
             <v-text-field
               label="Nombre del Hotel"
               class="purple-input"
               prepend-icon="mdi-tag-heart-outline"
               v-model="hotelPaq"
+            />
+          </v-col>
+          <v-col cols="8" md="6">
+            <v-text-field
+              label="Web del Hotel"
+              class="purple-input"
+              prepend-icon="mdi-tag-heart-outline"
+              v-model="webHotelPaq"
             />
           </v-col>
 
@@ -61,7 +69,7 @@
               v-model="valuePaq"
             />
           </v-col>
-          <v-col cols="12" md="6">
+          <v-col cols="12" md="4">
             <v-container class="px-0" fluid>
               <v-switch
                 v-model="Promocinal"
@@ -70,7 +78,7 @@
               ></v-switch>
             </v-container>
           </v-col>
-          <v-col cols="1" md="1">
+          <v-col cols="2" md="1">
             <v-text-field
               v-if="Promocinal == 'SI'"
               v-model="dcto"
@@ -118,32 +126,7 @@
           </v-col>
 
           <!--AQUI ESTA LA FILA DE INCLUIDOS (ELEMENTOS QUE INCLUYE CADA PAQUETE)-->
-          <v-col cols="12">
-            <v-container>
-              <v-row>
-                <v-col>
-                  <v-treeview
-                    v-model="selection"
-                    selectable
-                    selected-color="blue"
-                    :items="items"
-                    return-object
-                  ></v-treeview>
-                </v-col>
-                <v-divider vertical></v-divider>
-                <v-col class="pa-6" cols="6">
-                  <template v-if="!selection.length">
-                    No hay beneficios seleccionados.
-                  </template>
-                  <template v-else>
-                    <div v-for="node in selection" :key="node.id">
-                      {{ node.name }}
-                    </div>
-                  </template>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-col>
+          <incluidos @arrayInIncluidos="selection = $event" @lock="lock=$event" />
           <!--Fin FILA DE INCLUIDOS-->
 
           <v-col cols="12">
@@ -156,7 +139,7 @@
           </v-col>
 
           <v-col cols="12" class="text-center">
-            <v-btn color="primary" width=200 x-large @click="savePaq()">
+            <v-btn :disabled="lock" color="primary" width=200 x-large @click="savePaq()">
               CREAR
             </v-btn>
           </v-col>
@@ -183,13 +166,16 @@
 import { insertPaq } from "../../services/PaqsService";
 import SuccessMessage from "../../components/AllGoodMsj.vue";
 import ErrorMessage from "../../components/ErrorMsj.vue";
+import Incluidos  from "../../components/Incluidos.vue";
 export default {
   components: {
     SuccessMessage,
     ErrorMessage,
+    Incluidos,
   },
   data() {
     return {
+      lock:false,
       successMessage: "",
       successShow: false,
       errorMessage: "",
@@ -233,6 +219,7 @@ export default {
       idPaq: "",
       namePaq: "",
       hotelPaq: "",
+      webHotelPaq:"",
       valuePaq: "",
       Promocinal: "NO",
       dcto: "",
@@ -254,6 +241,7 @@ export default {
         this.descriptionPaq == undefined ||
         this.valuePaq == undefined ||
         this.hotelPaq == undefined ||
+        this.webHotelPaq == undefined ||
         this.addresPaq == undefined ||
         this.cityPaq == undefined ||
         this.depPaq == undefined ||
@@ -264,6 +252,7 @@ export default {
         this.descriptionPaq == "" ||
         this.valuePaq == "" ||
         this.hotelPaq == "" ||
+        this.webHotelPaq == "" ||
         this.addresPaq == "" ||
         this.cityPaq == "" ||
         this.depPaq == "" ||
@@ -281,6 +270,7 @@ export default {
         Promocinal: this.Promocinal,
         dcto: this.dcto,
         hotelPaq: this.hotelPaq,
+        webHotelPaq: this.webHotelPaq,
         dateIPaq: this.dateIPaq,
         dateFPaq: this.dateFPaq,
         addresPaq: this.addresPaq,
@@ -300,6 +290,7 @@ export default {
             (this.descriptionPaq = ""),
             (this.valuePaq = ""),
             (this.hotelPaq = ""),
+            (this.webHotelPaq = ""),
             (this.dateIPaq = ""),
             (this.dateFPaq = ""),
             (this.addresPaq = ""),

@@ -24,11 +24,11 @@
         v-if="search!=''"
         type="info"
       >
-      Recuerde: Debe ingresar el primer nombre o el # de documento del usuraio, luego oprima enter (si no genera datos intente poner un espacio luego al final antes de oprimir enter)
+      Recuerde: Debe ingresar el primer nombre o el # de documento del usuraio, luego oprima enter (si no genera datos intente poner un espacio al final.)
       </v-alert>
   
         <v-divider></v-divider>
-        <v-virtual-scroll item-height="70" height="300" :items="users">
+        <v-virtual-scroll item-height="70" height="400" :items="users">
 
           <template v-slot:default ="{ item }" >
             <br>

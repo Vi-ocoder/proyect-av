@@ -3,8 +3,8 @@
   <div>
     <v-data-table
       :headers="headers"
-      :items="desserts"
-      item-key="name"
+      :items="paquetesCli"
+      item-key="_id"
       class="elevation-1"
       :search="search"
       :custom-filter="filterOnlyCapsText"
@@ -16,66 +16,44 @@
           class="mx-4"
         ></v-text-field>
       </template>
-      <template>
-        <tr>
-          <td></td>
-          <td>
-            <v-text-field
-              v-model="calories"
-              type="number"
-              label="Less than"
-            ></v-text-field>
-          </td>
-          <td colspan="4"></td>
-        </tr>
+
+      <!-- para formatear el campo totalPago a formato de moneda  -->
+      <template v-slot:[`item.totalPago`]="{ item }">
+         {{ formatMoney(item.totalPago) }}
+      </template>
+      
+      <!-- para formatear el campo FECHA SALIDA a formato de Fecha  -->
+      <template v-slot:[`item.idPaq.dateIPaq`]="{ item }">
+         {{ formatDate(item.idPaq.dateIPaq) }}
+      </template>
+
+      <!-- para formatear el campo FECHA FIN a formato de Fecha  -->
+      <template v-slot:[`item.idPaq.dateFPaq`]="{ item }">
+         {{ formatDate(item.idPaq.dateFPaq) }}
       </template>
     </v-data-table>
   </div>
-
+  
+<br><br><br>
 </v-container>
+
 </template>
 
 
 <script>
+
+  import { findReservationsId } from "../../services/ReservationService";
+ 
   export default {
+    //Props: se recibe el 'id' que se manda por la url con el # identificacion del cliente
+    props:["id"],
     data () {
       return {
         search: '',
         calories: '',
-        desserts: [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0,
-            iron: '1%',
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3,
-            iron: '1%',
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9,
-            iron: '22%',
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7,
-            iron: '6%',
-          },
-        ],
+        idCliente:'',
+        paquetesCli:[],
+      
       }
     },
     computed: {
@@ -88,15 +66,22 @@
           {
             text: 'Nombre paquete',
             align: 'start',
-            value: 'name',
+            value: 'idPaq.namePaq',
           },
-          { text: 'Fecha Salida', value: 'calories' },
-          { text: 'Fecha Regreso', value: 'fat' },
-          { text: 'Precio pagado', value: 'carbs' },
-          { text: 'Estado', value: 'protein' },
+          { text: 'Fecha Salida', value:  'idPaq.dateIPaq' },
+          { text: 'Fecha Regreso', value: 'idPaq.dateFPaq' },
+          { text: 'Precio pagado', value:  'totalPago' },
+          { text: 'Estado', value: 'Estado' },
         ]
       },
     },
+
+    mounted(){
+
+      this.idCliente= this.id;
+      this.reservationsById();
+    },
+
     methods: {
       filterOnlyCapsText (value, search) {
         return value != null &&
@@ -104,6 +89,29 @@
           typeof value === 'string' &&
           value.toString().toLocaleLowerCase().indexOf(search) !== -1
       },
+
+      reservationsById(){
+        findReservationsId(this.idCliente).then((response) => {
+          const data  = response.data;
+          this.paquetesCli = data;
+        })
+        .catch((err) => {
+            console.log(err.message);
+          }
+        );
+      },
+
+      formatMoney(value) {
+        const currency =  new Intl.NumberFormat('en-US', {style: 'currency', currency: 'COP', minimumFractionDigits: 2}).format(value);
+        return  currency;
+      },
+
+      formatDate(value) {
+        const currency =  new Date(value);
+        const date = currency.toLocaleString();
+        return  date;
+      }
+      
     },
   }
 </script>

@@ -57,14 +57,6 @@
             >
               Nuevo Paquete
             </v-btn>
-            <v-btn
-              color="secundary"
-              dark
-              class="mb-2"
-              to="/infoUsers"
-            >
-              Ir a usuarios
-            </v-btn>
           </template>
         <v-spacer></v-spacer>
         <v-dialog

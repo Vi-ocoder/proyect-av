@@ -1,16 +1,16 @@
 <template>
   <!--vista de los datos del usuario seleccionado-->
-
-  <div>
-    <div v-if="user == ''">
-      Hubo un error al actualizar, cierra sesion e intenta de nuevo
-    </div>
-    <!--aqui se puede poner un if para user!=""-->
-    <v-card class="pt-6 mx-auto" flat max-width="100%" :color="colorCard">
-      <v-card-text>
-        <v-avatar size="150" rounded="circle">
-          <v-img :src="user.photo"></v-img>
-        </v-avatar>
+  <v-container>
+    <v-card class="pt-6 mx-auto" :color="colorCard">
+      <v-col class="col-12 " align="center">
+              <v-avatar v-if="user.photo!=undefined" size="150" rounded="circle">
+                <v-img  :src="user.photo"></v-img>
+              </v-avatar>
+              <v-avatar v-else size="150">
+                <v-img v-if="user.select2=='Femenino'" src="../../../public/images/Avatar_Default/avatar-mujer.jpg"></v-img>
+                <v-img v-if="user.select2=='Masculino'" src="../../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+                <v-img esle src="../../../public/images/Avatar_Default/avatar-hombre.png"></v-img>
+              </v-avatar>
         <v-btn
           class="text--primary btnActualizar"
           fab
@@ -32,9 +32,9 @@
 
         <h3 class="text-h5 mb-0">{{ user.Firstname }} {{ user.Lastname }}</h3>
 
-        <div class="blue--text mb-0">
+        <v-col class="blue--text mb-0 col-12" >
           {{ user.email }}
-        </div>
+        </v-col>
         <v-row>
           <v-col cols="12" md="6">
             <div class="gray--text subheading typeDocto">
@@ -47,7 +47,7 @@
             </div>
           </v-col></v-row
         >
-      </v-card-text>
+      </v-col>
       <v-divider></v-divider>
       <v-row class="text-left" tag="v-card-text">
         <v-col class="text-right mr-4" tag="strong" cols="6"> Género: </v-col>
@@ -77,7 +77,7 @@
         :close="closeError"
       />
     </v-card>
-  </div>
+  </v-container>
 </template>
 
 <script>

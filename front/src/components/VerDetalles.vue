@@ -5,17 +5,27 @@
     </v-card-title>
 
     <v-divider></v-divider>
+    <v-hover v-slot="{ hover }">
     <v-img class="white--text align-end" height="300px" :src="paq.imagePaq">
-      <v-card-subtitle>${{ paq.valuePaq }} </v-card-subtitle>
-      <v-card-title id="v-card-title-outhover"
+      <v-expand-transition>
+      <v-card-title v-if="!hover" class="text-h4 onHover font-weight-light mb-1 d-flex transition-fast-in-fast-out"
         >Hotel {{ paq.hotelPaq }}
       </v-card-title>
+
+          <v-card-title
+            v-if="hover"
+            style="height: 50%;"
+          >
+          </v-card-title>
+      </v-expand-transition>
     </v-img>
-    <v-card-title class="pb-2">
+    </v-hover>
+    <v-card-subtitle class="font-weight-light grey--text text-h6 " v-if="paq.webHotelPaq != null">Web del Hotel: <a :href="paq.webHotelPaq" target="_blank">{{paq.webHotelPaq}}</a> </v-card-subtitle>
+    <v-card-title class="pb-1 text-h4 font-weight-light orange--text mb-1">
       {{ paq.cityPaq }} - {{ paq.depPaq }}</v-card-title
     >
     <v-card-text>
-      <div>{{ paq.descriptionPaq }}</div>
+      <div class="font-weight-light text-h6 mb-2">{{ paq.descriptionPaq }}</div>
     </v-card-text>
 
     <!--StartIncluidos-->
@@ -105,11 +115,10 @@ export default {
 };
 </script>
 <style scoped>
-.pb-2 {
-  font-size: 150%;
-  color: rgb(120, 120, 241);
-  font-weight: bolder;
-  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+.onHover{
+  color: rgb(253, 253, 253);
+  text-shadow: 2px 2px 4px #000000;
+  font-weight:bolder;
 }
 #btnClose {
   bottom: 535px;

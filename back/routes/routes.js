@@ -39,7 +39,9 @@ router.post("/authenticate", UsersController.validateUser);
 
 
 //Rutas de reservas
+router.get("/reservations/:idCliente", ReservationsController.getByClientId);
 router.post("/reservations", ReservationsController.insert);
+
 
 
 module.exports = router;
