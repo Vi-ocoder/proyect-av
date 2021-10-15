@@ -2,6 +2,7 @@
   <v-container>
     <v-row>
       <v-col>
+        <p>Seleccione los beneficios que se incluyen en este paquete</p>
         <v-treeview
           v-model="selection"
           selectable=true

@@ -30,8 +30,22 @@
         {{ item.Estado}}
       </v-chip>
       <v-chip
-        v-else
+        v-if="item.Estado == 'En Uso'"
         color="green"
+        dark
+      >
+        {{ item.Estado}}
+      </v-chip>
+      <v-chip
+        v-if="item.Estado == 'No vigente'"
+        color="blue"
+        dark
+      >
+        {{ item.Estado}}
+      </v-chip>
+      <v-chip
+        v-if="item.Estado=='Cancelada'"
+        color="red"
         dark
       >
         {{ item.Estado }}

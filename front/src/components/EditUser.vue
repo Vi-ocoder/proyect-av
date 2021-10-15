@@ -27,7 +27,7 @@
           label="Apellido"
         ></v-text-field>
 
-        <div v-if="root!='profile' && root!='ReservarPaq'">
+        <div v-if="root!='profile' && root!='ReservarPaq'&&root!='Cliente'">
         <v-text-field
           v-model="email"
           :rules="emailRules"
