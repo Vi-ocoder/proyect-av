@@ -4,7 +4,7 @@
    
     <!-- barra de navegacion -->
     <v-bottom-navigation v-model="value" :value="value" fixed color="primary">
-      <v-col cols=2 align="center">
+      <v-col cols="2" sm="0" align="center">
         <v-img
           class="mt-0"
           max-height="40"
@@ -12,7 +12,7 @@
           src="../public/images/pagina/logo.png"
         ></v-img>
       <v-divider></v-divider></v-col>
-      <v-col cols="8" align="center">
+      <v-col cols="8" sm="12" align="center">
       <!-- Inicio  -->
       <v-btn value="home"  to="/" style="height: inherit; background-color: transparent;">
         <span>Inicio</span>
@@ -45,7 +45,7 @@
           <span>Perfil</span>    
           <v-icon>fas fa-user</v-icon>
         </v-btn>
-      <!-- </router-link> --></v-col><v-col cols="2"></v-col>
+        </v-col><v-col cols="2" sm="0" > <p class="devInfo"> Desarrollado por: <br> Carlos Diaz, Carlos Guerrero y Victor Ocampo. <br>Casi todos los derechos reservados</p></v-col>
     </v-bottom-navigation>
     
     <!-- Menu lateral izquierdo (solo users y admins)  -->
@@ -214,3 +214,8 @@ export default {
   },
 };
 </script>
+<style>
+.devInfo{
+  font-size: 6px;
+}
+</style>
