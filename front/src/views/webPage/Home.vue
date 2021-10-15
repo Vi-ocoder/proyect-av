@@ -8,6 +8,7 @@
         <v-overlay value="true" absolute>
           <v-row align="center" justify="center">
             <v-col class="text-center" cols="12">
+              <img class="imgHome" src="../../../public/images/pagina/logo.png">
               <p class="mb-4">
                 Viaja a cualquier rincón de colombia, sin dar vueltas
               </p>
@@ -79,3 +80,8 @@ import vistaRapida from "../../components/carruselHome.vue";
      }),
   }
 </script>
+<style>
+.imgHome{
+  text-shadow: 2px,2px,black;
+}
+</style>

@@ -21,54 +21,44 @@
                 <v-card-subtitle></v-card-subtitle>
 
                 <v-card-actions>
-                  <v-btn class="ml-2 mt-5" outlined rounded small>
-                    VER
+                  <v-btn class="ml-2 mt-5" outlined rounded  @click="dialogMyRes=true">
+                    VER mas
                   </v-btn>
                 </v-card-actions>
               </div>
-
-              <v-avatar class="ma-3" size="125" tile>
-                <v-img src="item.src"></v-img><!--no esta en uso por ahora-->
-              </v-avatar>
+            <v-dialog v-model="dialogMyRes">
+              <v-card>
+                <v-btn @click="dialogMyRes=false" rigth><v-icon>mdi-close</v-icon> cerrar</v-btn>
+                <reservations :id="id"/>
+              </v-card>
+            </v-dialog>
+              <!--v-avatar class="ma-3" size="125" tile>
+                <v-img src="item.src"></v-img><--no esta en uso por ahora->
+              </v-avatar-->
             </div>
-            
           </v-card>
+          <reservations :id="id"/>
         </v-col>
         </v-col>
       </v-row>
-      <br>
-      <br>
-      
-      <h3>Que nada se te olvide...</h3>  
+      <br>  
     </v-container>
-    <calendario />
   </v-card>
 </template>
 <script>
+import Reservations from '../../../views/users/reservations.vue';
 import Carrusel from "../../CarruselPaqs.vue";
-import Calendario from '../Calendario.vue';
-
 export default {
+  props:["id"],
   components: {
     Carrusel,
-    Calendario,
+    Reservations,
   },
   data: () => ({
+    dialogMyRes:false,
+    idCliente:"",
     root:"ClienteResources",
-    items: [
-      {
-        color: "#1F7087",
-        src: "https://cdn.vuetifyjs.com/images/cards/foster.jpg",
-        title: "Supermodel",
-        artist: "Foster the People",
-      },
-      {
-        color: "#952175",
-        src: "https://cdn.vuetifyjs.com/images/cards/halcyon.png",
-        title: "Halcyon Days",
-        artist: "Ellie Goulding",
-      },
-    ],
+    
   }),
 };
 </script>

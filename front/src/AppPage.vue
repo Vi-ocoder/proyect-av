@@ -27,7 +27,10 @@ const hasEnter= null; //varaible global
 
     components:{
       NavigaComponent
-    }
+    },
+    created(){
+      window.document.title = 'ColombiaTour';
+    },
      
   }
 </script> 

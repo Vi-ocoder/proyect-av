@@ -4,6 +4,15 @@
    
     <!-- barra de navegacion -->
     <v-bottom-navigation v-model="value" :value="value" fixed color="primary">
+      <v-col cols=2 align="center">
+        <v-img
+          class="mt-0"
+          max-height="40"
+          max-width="100"
+          src="../public/images/pagina/logo.png"
+        ></v-img>
+      <v-divider></v-divider></v-col>
+      <v-col cols="8" align="center">
       <!-- Inicio  -->
       <v-btn value="home"  to="/" style="height: inherit; background-color: transparent;">
         <span>Inicio</span>
@@ -36,7 +45,7 @@
           <span>Perfil</span>    
           <v-icon>fas fa-user</v-icon>
         </v-btn>
-      <!-- </router-link> -->
+      <!-- </router-link> --></v-col><v-col cols="2"></v-col>
     </v-bottom-navigation>
     
     <!-- Menu lateral izquierdo (solo users y admins)  -->
@@ -49,12 +58,13 @@
               <v-avatar size="90">
                 <v-img :src="this.foto "></v-img>
               </v-avatar>
-              <p class="pt-2"> Bienvenido:</p> 
+              <p class="pt-2"> BIENVENIDO:</p> 
             </div>
 
           </v-list-item-title>
           <v-list-item-subtitle>
             <div align="center">
+              <p class="font-weight-bold"> {{ email }}  </p>
               <h3 style="color: black">{{ nom +' '+ ape }}   </h3>
               <p class="pt-1"> {{ role }}  </p>
             </div>
@@ -76,10 +86,16 @@
         </div>
 
         <div  v-if="role === 'Cliente'">
-          <v-list-item v-for="item in userRoute" :key="item.title" link  :to="{name: item.link, params: {id:item.id}}">
-            <v-list-item-icon> <v-icon>{{ item.icon }}</v-icon> </v-list-item-icon>
+          <v-list-item :to="{name: userRoute[0].link, params: {id:userRoute[0].id}}">
+            <v-list-item-icon> <v-icon>{{ userRoute[0].icon }}</v-icon> </v-list-item-icon>
             <v-list-item-content> 
-              <v-list-item-title>{{ item.title }}</v-list-item-title> 
+              <v-list-item-title>{{ userRoute[0].title }}</v-list-item-title> 
+            </v-list-item-content>
+          </v-list-item>
+          <v-list-item :to="userRoute[1].link">
+            <v-list-item-icon> <v-icon>{{ userRoute[1].icon }}</v-icon> </v-list-item-icon>
+            <v-list-item-content> 
+              <v-list-item-title>{{ userRoute[1].title }}</v-list-item-title> 
             </v-list-item-content>
           </v-list-item>
         </div>
@@ -119,7 +135,7 @@ export default {
       return {
         // --esto lo usa victor-
         cuenta:null,
-        nom:"Andres",
+        nom:"",
         email:"",
         idCliente:'aaa',
         //----------------
@@ -129,25 +145,25 @@ export default {
         role: '',
         role2:this.hasRole("admin"),
         adminRoute: [
-          { title: 'Gestión paquetes', icon: 'fas fa-luggage-cart', link:'/tabPaqs'},
-          { title: 'Gestión usuarios', icon: 'fas fa-users', link:'/infoUsers'},
-          { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
+          { title: 'GESTION PAQUETES', icon: 'fas fa-luggage-cart', link:'/tabPaqs'},
+          { title: 'GESTION USUARIOS', icon: 'fas fa-users', link:'/infoUsers'},
+          { title: 'MI CUENTA', icon: 'fas fa-user', link:'/profile' },
         ],
         userRoute: [
           //Las rutas para rol cliente son diferentes se invocan por el nombre de pila de la ruta no por el path
-          { title: 'Mis reservas', icon: 'fas fa-plane', link: 'my-reservations', id:'' },
-          { title: 'Cuenta', icon: 'fas fa-user', link:'Profile', id:'' },
+          { title: 'MIS RESERVAS', icon: 'fas fa-plane', link: 'my-reservations', id:'' },
+          { title: 'MI CUENTA', icon: 'fas fa-user', link:'/profile' },
+          
         ],
         asesorRoute:[
-         { title: 'Gestión usuarios', icon: 'fas fa-users', link:'/infoUsers'},
-         { title: 'Cuenta', icon: 'fas fa-user', link:'/profile' },
+         { title: 'GESTION RESERVAS', icon: 'mdi-book-edit', link:'/reservsInfo', id:'' },
+         { title: 'GESTION USUARIOS', icon: 'fas fa-users', link:'/infoUsers'},
+         { title: ' MI CUENTA', icon: 'fas fa-user', link:'/profile' },
         ],
       }
     },
   
   mounted(){
-
-
     this.email = sessionStorage.getItem("email");
     this.role = sessionStorage.getItem("role");
     this.nom = sessionStorage.getItem("nombre");
@@ -195,7 +211,6 @@ export default {
       window.location.reload();
       
     },
-    //para cambiar el drawer desde el perfil
   },
 };
 </script>

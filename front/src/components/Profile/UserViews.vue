@@ -9,12 +9,12 @@
     <v-row>
       <!--vista de los datos del usuario seleccionado-->
       <v-col class="col-6 col-md-4">
-        <div v-if="user == ''">Error data found</div>
+        <div v-if="user == ''">Get data, please waith..</div>
         <div v-if="user != ''">
           <profile-user :user="user" :root="user.typeUser" />
         </div>
         <br />
-        <div>
+        <div v-if="user.typeUser!='Cliente'">
           <buttoms-opc />
         </div>
       </v-col>
@@ -22,7 +22,7 @@
       <v-col class="col-12 col-sm-6 col-md-8">
         <admin-resources v-if="user.typeUser == 'Admin'" />
         <asesor-resources v-if="user.typeUser == 'Asesor'" />
-        <cliente-resources v-if="user.typeUser == 'Cliente'" />
+        <cliente-resources v-if="user.typeUser == 'Cliente'" :id="user.numberID" />
       </v-col>
     </v-row>
   </div>

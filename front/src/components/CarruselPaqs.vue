@@ -22,7 +22,7 @@
                     color="primary"
                     relative
                     @click="(dialog = false), (cycle = true)"
-                    to="/ReservarPaq"
+                    :to="{ name: 'ReservarPaq', params: {id: paq.idPaq, paquete: paq }}"
                     >
                     LO QUIERO
                   </v-btn>

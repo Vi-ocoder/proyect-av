@@ -1,12 +1,12 @@
 <template>
-    <calendario/>
+  <reservs-info/>
 </template>
 <script>
-import Calendario from '../Calendario.vue'
+import ReservsInfo from '../../ReservsInfo.vue'
 export default {
-  components: { Calendario },
+  components: { ReservsInfo },
     data:() => {
-
+      
     },
 }
 </script>

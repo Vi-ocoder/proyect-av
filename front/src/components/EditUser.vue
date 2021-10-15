@@ -7,7 +7,7 @@
       <v-card-title v-else> REGISTRATE CON NOSOTROS </v-card-title>
       <v-form ref="form" v-model="valid" lazy-validation class="formNewUser">
         <v-alert
-          v-if="root=='Cliente'"
+          v-if="root=='Cliente' || root=='ReservarPaq' "
           type="info" 
         >
         Recuerde que su e-mail y numero de documento solo pueden ser actualizados por un asesor de servicios.
@@ -27,7 +27,7 @@
           label="Apellido"
         ></v-text-field>
 
-        <div v-if="root!='profile'">
+        <div v-if="root!='profile' && root!='ReservarPaq'">
         <v-text-field
           v-model="email"
           :rules="emailRules"
@@ -36,7 +36,6 @@
         ></v-text-field>
         
         <v-select
-          
           v-model="select1"
           :items="typesDoc"
           label="Tipo de Documento"
@@ -45,6 +44,7 @@
         <v-row>
           ´ ´
           <v-text-field
+            v-if="root!='ReservarPaq'"
             v-model="numberID"
             label="Numero de Documento"
             type="number"
@@ -54,6 +54,7 @@
           ></v-text-field>
 
           <v-checkbox
+            v-if="root!='ReservarPaq'"
             v-model="editNumDoc"
             label="Editar N° Doc"
           ></v-checkbox>
@@ -68,6 +69,7 @@
         ></v-text-field>
 
         <v-select
+          v-if="root!='ReservarPaq'"
           v-model="select2"
           :items="sex"
           label="Género"
@@ -75,12 +77,13 @@
         ></v-select>
 
         <v-text-field
+          v-if="root!='ReservarPaq'"
           class="purple-input"
           label="Fecha de Nacimiento"
           type="date"
           v-model="birthDate"
         />
-        <v-row>
+        <v-row v-if="root!='ReservarPaq'">
           <v-col>
             <v-file-input class="pt-10"
               id="photo"
@@ -100,7 +103,7 @@
             </v-col>
         </v-row>
 
-        <v-row v-if="root!='Cliente' && root!='Asesor'">
+        <v-row v-if="root!='Cliente' && root!='Asesor' && root!='ReservarPaq'">
         <v-select 
           v-model="typeUser"
           :items="typesUser"
@@ -113,7 +116,7 @@
         </v-checkbox>
         </v-row>
         <v-alert
-          v-if="typeUser=='Cliente' || typeUser=='Asesor'"
+          v-if="(typeUser=='Cliente' || typeUser=='Asesor') && editTypeUser==true "
           type="error" 
         >
         Si cambia este dato ya no será Administrador, perderá los permisos que ahora posee.
@@ -211,6 +214,9 @@ export default {
       }
       if (this.photo == "" || this.photo == null || this.photo == undefined) {
         this.photo = this.userRoot.photo;
+      }
+      if (this.phone == "" || this.phone == null || this.phone == undefined) {
+        this.phone = this.userRoot.phone;
       }
       if (this.select2 == "" || this.select2 == null || this.select2 == undefined) {
         this.select2 = this.userRoot.select2;

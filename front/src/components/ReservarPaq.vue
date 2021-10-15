@@ -23,6 +23,23 @@
       <v-stepper-items>
         <!-- datos del paquete a reservar  -->
         <v-stepper-content step="1">
+          <h3>Seleccione la fecha de salida y llegada</h3><br>
+          <v-row>
+          <v-text-field
+            v-model="dateS"
+            label="Fecha de salida"
+            outlined
+            shaped
+            type="date"
+          ></v-text-field>
+          <v-text-field
+            v-model="dateL"
+            label="Fecha de llegada"
+            outlined
+            shaped
+            type="date"
+          ></v-text-field>
+          </v-row>
           <v-card class="mb-12" color="indigo lighten-5" height="auto">
             <div class="pa-5 row">
               <div class="col-md-6">
@@ -39,11 +56,11 @@
                       </tr>
                       <tr>
                         <td><b> Fecha de salida: </b></td>
-                        <td>{{ paquete.dateIPaq }}</td>
+                        <td>{{ dateS }}</td>
                       </tr>
                       <tr>
                         <td><b> Fecha de regreso: </b></td>
-                        <td>{{ paquete.dateFPaq }}</td>
+                        <td>{{ dateL }}</td>
                       </tr>
                       <tr>
                         <td><b> Precio paquete: </b></td>
@@ -100,11 +117,14 @@
               <div class="col-md-5 justify-center">
                 <p>
                   <b>Nota: </b>
-                  cercioré que sus datos personales sean correctos. <br />
-                  En caso contrario debe actualizarlos.
+                  Cerciorese que sus datos personales sean correctos. <br />
+                  En caso contrario debe actualizarlos. <br>
                 </p>
-                <v-btn elevation="2"> Actualizar datos</v-btn>
+                <v-btn elevation="2" @click="dialogAct=true"> Actualizar datos</v-btn>
               </div>
+              <v-dialog v-model="dialogAct">
+                <edit-user :userRoot="user" :root="outRoot"/>
+              </v-dialog>
             </div>
           </v-card>
           <v-btn color="primary" @click="e1 = 3">Continue</v-btn>
@@ -295,7 +315,7 @@
               <br />
               <p>
                 Puede verificar el estado de la reserva desde el menú de
-                opciones: <v-btn to="/my-reservations"> Mis reservas.</v-btn>
+                opciones: <v-btn :to="reservationUser"> Mis reservas.</v-btn>
               </p>
             </div>
           </v-card>
@@ -308,12 +328,21 @@
 </template>
 
 <script>
+import { getByNumberID } from "../services/UsersService";
 import { insertReservation } from "../services/ReservationService";
+import EditUser from './EditUser.vue';
 
 export default {
+  components: { EditUser },
   props: ["id", "paquete"],
   data() {
     return {
+      dateS:"",
+      dateL:"",
+      reservationUser:"",
+      outRoot:"ReservarPaq",
+      dialogAct:false,
+      user:[],
       e1: 1,
       valid: false,
       loader: null,
@@ -345,8 +374,16 @@ export default {
     this.UsrCedula = sessionStorage.getItem("identificacion");
     this.UsrCedulaNum = sessionStorage.getItem("numeroIdentificacion");
 
+    this.reservationUser = "/my-reservations/"+this.UsrCedulaNum;
     this.idPaquete = this.paquete._id;
     this.totalPago = this.paquete.valuePaq;
+    //esto para actualizar usuario
+    //this.UsrCedula=parseInt(this.UsrCedula);
+    getByNumberID(this.UsrCedulaNum)
+    .then((response) =>
+                this.user=response.data,
+              )
+              .catch((err) => console.log(err));  
   },
 
   methods: {
@@ -357,6 +394,8 @@ export default {
       const reserva = {
         idPaq: this.idPaquete,
         idCliente: this.UsrCedulaNum,
+        fechaSalida:this.dateS,
+        fechaLLegada:this.dateL,
         fechaPago: new Date(),
         formaPago: "Tarjeta Credito",
         totalPago: this.totalPago,

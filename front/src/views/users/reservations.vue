@@ -68,8 +68,9 @@
             align: 'start',
             value: 'idPaq.namePaq',
           },
-          { text: 'Fecha Salida', value:  'idPaq.dateIPaq' },
-          { text: 'Fecha Regreso', value: 'idPaq.dateFPaq' },
+          { text: 'Fecha Salida', value:  'fechaSalida' },
+          { text: 'Fecha Regreso', value: 'fechaLLegada' },
+          { text: 'Cod. Factura', value: '_id' },
           { text: 'Precio pagado', value:  'totalPago' },
           { text: 'Estado', value: 'Estado' },
         ]

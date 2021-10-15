@@ -39,8 +39,10 @@ router.post("/authenticate", UsersController.validateUser);
 
 
 //Rutas de reservas
+router.get("/reservations", ReservationsController.getAllRes);
 router.get("/reservations/:idCliente", ReservationsController.getByClientId);
 router.post("/reservations", ReservationsController.insert);
+router.delete("/users/:idPaq", ReservationsController.deleteRes);
 
 
 

@@ -7,6 +7,8 @@
       <v-img src="../../../public/images/pagina/banner_1.jpg" class="bg-img1">
         <v-overlay value="true" absolute>
           <v-form ref="form" v-on:submit.prevent="validate();">
+            
+              <img  width=500  src="../../../public/images/pagina/logo.png">
             <h2> INGRESA O REGISTRATE CON NOSOTROS </h2>
             <br />
             <br />

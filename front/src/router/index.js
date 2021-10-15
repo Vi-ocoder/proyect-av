@@ -17,13 +17,13 @@ Vue.use(VueRouter)
 const routeGuard = (to, from, next) => {
     let isAuthenticated = false;
     if (sessionStorage.getItem("email")) {
-      isAuthenticated = true;
+        isAuthenticated = true;
     }
-  
+
     if (isAuthenticated) {
-      next();
+        next();
     } else {
-      next("/");
+        next("/");
     }
 };
 
@@ -47,15 +47,16 @@ const routes = [{
         path: '/ReservarPaq/:id',
         name: 'ReservarPaq',
         component: ReservarPaq,
-        props: true,                //esta ruta queda habilitada para recibir props
-        beforeEnter: routeGuard,    //Ejecuta este codigo antes de mostrar el Componente ligado a esta ruta.
+        props: true, //esta ruta queda habilitada para recibir props
+        beforeEnter: routeGuard, //Ejecuta este codigo antes de mostrar el Componente ligado a esta ruta.
     },
     {
         path: '/my-reservations/:id',
         name: 'my-reservations',
-        props: true, 
+        props: true,
         beforeEnter: routeGuard,
-        component: () => import ( /*  */ '../views/users/reservations.vue')
+        component: () =>
+            import ( /*  */ '../views/users/reservations.vue')
     },
 
     {
@@ -142,6 +143,12 @@ const routes = [{
         name: 'Profile',
         component: () =>
             import ( /*  */ '../views/users/profile.vue')
+    },
+    {
+        path: '/reservsInfo',
+        name: 'Reservas',
+        component: () =>
+            import ( /*  */ '../components/ReservsInfo.vue')
     },
 
 ]

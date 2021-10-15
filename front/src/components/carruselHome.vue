@@ -6,10 +6,10 @@
       </v-col>
       <!--Pongo un campo para iniciar sesion en el home-->
       <v-col lg="6" sm="12">
-        <v-card heigth="620" v-if="isLogged!=''" >
+        <v-card  v-if="isLogged!=''&&isLogged!=null&&isLogged!=undefined" >
           <calendario/>
         </v-card>
-        <v-card heigth="620" v-else>
+        <v-card v-if="isLogged==null||isLogged==undefined||isLogged==''">
           <login />
         </v-card>
       </v-col>
