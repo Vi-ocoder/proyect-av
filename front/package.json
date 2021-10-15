@@ -3,6 +3,7 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
+        "prod" :"-rm -rf ../back/site && vue-cli-service build --mode production --dest ../back/site",
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
         "test:unit": "vue-cli-service test:unit",
