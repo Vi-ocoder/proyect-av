@@ -1,9 +1,9 @@
 const reservationModel = require("../models/reservationModels");
 
-module.exports = class ReservationsController{
+module.exports = class ReservationsController {
 
 
-    static async insert(req, res) { 
+    static async insert(req, res) {
         try {
             const reservation = req.body;
             const newReservation = await reservationModel.create(reservation);
@@ -21,7 +21,7 @@ module.exports = class ReservationsController{
 
             //Populate hace la relacion tipo join con la tabla paquetes.(ver Modelo: reservationModel)
             const reservation = await reservationModel.find({ "idCliente": id }).populate('idPaq');
-             
+
             if (reservation != null) {
                 res.status(200).json(reservation);
             } else {
@@ -34,5 +34,32 @@ module.exports = class ReservationsController{
         }
     }
 
+    static async getAllRes(req, res) {
+        const id = req.params.idCliente;
+
+        try {
+            //Populate hace la relacion tipo join con la tabla paquetes.(ver Modelo: reservationModel)
+            const reservation = await reservationModel.find().populate('idPaq');
+
+            if (reservation != null) {
+                res.status(200).json(reservation);
+            } else {
+                res.status(404).json();
+            }
+
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+
+        }
+    }
+    static async deleteRes(req, res) {
+        try {
+            const id = req.params.idPaq;
+            await reservationModel.deleteOne({ "idPaq": id });
+            res.status(200).json();
+        } catch (err) {
+            res.status(400).json({ message: err.message });
+        }
+    }
 
 }

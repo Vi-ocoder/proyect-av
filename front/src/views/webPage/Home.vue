@@ -8,6 +8,7 @@
         <v-overlay value="true" absolute>
           <v-row align="center" justify="center">
             <v-col class="text-center" cols="12">
+              <img class="imgHome" src="../../../public/images/pagina/logo.png">
               <p class="mb-4">
                 Viaja a cualquier rincón de colombia, sin dar vueltas
               </p>
@@ -59,7 +60,7 @@
         <v-divider></v-divider>
         <br>
         <h2 class="mb-4 text-center"> Todo lo que necesitas en un mismo lugar </h2>
-        <vista-rapida />
+        <vista-rapida :root="outRoot" />
         <br><br><br>
       </v-container>
     </v-main>
@@ -73,8 +74,14 @@ import vistaRapida from "../../components/carruselHome.vue";
     vistaRapida,
   },
     data: () => ({ 
+      outRoot:"Home",
       drawer: null,
       value: 'home' // Donde quiero que inicie pintado el selector del menu v-bottom-navigation
      }),
   }
 </script>
+<style>
+.imgHome{
+  text-shadow: 2px,2px,black;
+}
+</style>

@@ -4,6 +4,9 @@
       <!-- contenido principal  -->
       <v-container>
         <div class="row">
+          <v-col align="center">
+            <img width="500" src="../../../public/images/pagina/logo.png"
+          /></v-col>
           <div class="col-md-12 text-center">
             <h1>Paquetes turisticos</h1>
             <p>Destinos para viajar por el pais</p>
@@ -65,7 +68,7 @@
         <div class="row">
           <div class="col-md-12 text-center">
             <v-divider></v-divider>
-            <br>
+            <br />
             <h2 id="titleOne">PAQUETES TURISTICOS</h2>
           </div>
           <div
@@ -97,7 +100,7 @@
                 <v-row>
                   <v-dialog
                     transition="dialog-bottom-transition"
-                    max-width=700
+                    max-width="700"
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -121,7 +124,13 @@
                           <ver-detalles :paq="paq" v-on:update="updateList()" />
                         </v-card-text>
                         <v-card-actions class="justify-end">
-                          <v-btn class="btnClose" color="rgba(240, 128, 128, .5)" dark rounded outline @click="dialog.value = false"
+                          <v-btn
+                            class="btnClose"
+                            color="rgba(240, 128, 128, .5)"
+                            dark
+                            rounded
+                            outline
+                            @click="dialog.value = false"
                             >CERRAR</v-btn
                           >
                         </v-card-actions>
@@ -135,7 +144,10 @@
                   color="green darken-3"
                   text
                   @click="reserve"
-                  :to= "{ name: 'ReservarPaq', params: {id: paq.idPaq, paquete: paq }}"
+                  :to="{
+                    name: 'ReservarPaq',
+                    params: { id: paq.idPaq, paquete: paq },
+                  }"
                 >
                   RESERVAR
                 </v-btn>
@@ -186,11 +198,11 @@
                 </v-chip>
               </v-card-title>
               <v-card-actions>
-               <!--Para el dialogo ver detalles-->
+                <!--Para el dialogo ver detalles-->
                 <v-row>
                   <v-dialog
                     transition="dialog-bottom-transition"
-                    max-width=700
+                    max-width="700"
                   >
                     <template v-slot:activator="{ on, attrs }">
                       <v-btn
@@ -211,10 +223,21 @@
                           {{ paq.idPaq }}
                         </v-toolbar>
                         <v-card-text>
-                          <ver-detalles :paq="paq" :dialog="null" :root="root" v-on:update="updateList()" />
+                          <ver-detalles
+                            :paq="paq"
+                            :dialog="null"
+                            :root="root"
+                            v-on:update="updateList()"
+                          />
                         </v-card-text>
-                        <v-card-actions >
-                          <v-btn class="btnClose" color="rgba(240, 128, 128, .5)" dark rounded outline @click="dialog.value = false"
+                        <v-card-actions>
+                          <v-btn
+                            class="btnClose"
+                            color="rgba(240, 128, 128, .5)"
+                            dark
+                            rounded
+                            outline
+                            @click="dialog.value = false"
                             >CERRAR</v-btn
                           >
                         </v-card-actions>
@@ -223,7 +246,14 @@
                   </v-dialog>
                 </v-row>
                 <!--fin del dialogo ver detalles-->
-                <v-btn color="green darken-3" text :to= "{ name: 'ReservarPaq', params: {id: paq.idPaq, paquete: paq }}" >
+                <v-btn
+                  color="green darken-3"
+                  text
+                  :to="{
+                    name: 'ReservarPaq',
+                    params: { id: paq.idPaq, paquete: paq },
+                  }"
+                >
                   RESERVAR
                 </v-btn>
               </v-card-actions>
@@ -247,32 +277,34 @@ export default {
     drawer: null,
     value: "home", // Donde quiero que inicie pintado el selector del menu v-bottom-navigation
     loading: false,
-    
+
     //ESTO LO PUSO VICTOR
     paquetes: [], //array con todos los paquetes que hay en la BD
     paqs: [], //array con los paquetes normales
     paqsDcto: [], // array con paquetes promocionales
-    res : "",
+    res: "",
     selection: 1,
-    root:"Travels"
+    root: "Travels",
   }),
   methods: {
     //activar el loading
     reserve() {
       this.loading = true;
       setTimeout(() => (this.loading = false), 2000);
-      
     },
   },
 
   //ESTO LO PONE VICTOR
-  mounted() {//este mounted trae los datos de cada paquete desde una base de datos en mongo
+  mounted() {
+    //este mounted trae los datos de cada paquete desde una base de datos en mongo
     getAllPaqs()
       .then((response) => {
         this.paquetes = response.data; //llena el array "paquetes" con los datos de la bd
 
         this.paqsDcto = this.paquetes.filter((paq) => paq.dcto > 0); //filtra los paquetes que tienen descuento para ubicarlos en paquetes promocionales
-        this.paqs = this.paquetes.filter((paq) => paq.dcto == null ||paq.dcto == 0); //filtra los paquetes que NO tienen descuento para ubicarlos en paquetes TURISTICOS
+        this.paqs = this.paquetes.filter(
+          (paq) => paq.dcto == null || paq.dcto == 0
+        ); //filtra los paquetes que NO tienen descuento para ubicarlos en paquetes TURISTICOS
       })
       .catch((err) => console.error(err));
   },
@@ -284,9 +316,10 @@ export default {
   padding-right: 35px;
   padding-left: 35px;
 }
-#titleOne, #titleTwo{
-  font-family: "Exo2", sans-serif ;
-  color: green darken-3 ;
+#titleOne,
+#titleTwo {
+  font-family: "Exo2", sans-serif;
+  color: green darken-3;
 }
 .btnClose {
   bottom: 545px;

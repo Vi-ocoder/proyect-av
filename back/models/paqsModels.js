@@ -4,6 +4,7 @@ const paqSchema = mongoose.Schema({
     "idPaq": Number,
     "namePaq": String,
     "hotelPaq": String,
+    "webHotelPaq": String,
     "valuePaq": String,
     "Promocinal": String,
     "dcto": Number,

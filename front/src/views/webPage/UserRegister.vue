@@ -68,6 +68,26 @@
                      @input="$v.birthDate.$touch()"
                      @blur="$v.birthDate.$touch()"
                     ></v-text-field>
+                    <v-row>
+                    <v-col>
+                    <v-file-input
+                      class="pt-12"
+                      id="photo"
+                      v-model="photo"
+                      :rules="rules"
+                      accept="image/png, image/jpeg, image/bmp"
+                      placeholder="Agregue aquí su foto"
+                      prepend-icon="mdi-camera"
+                      label="Foto de perfil"
+                      @change="mostrar()"
+                    ></v-file-input>
+                    </v-col>
+                    <v-col>
+                      <v-card class="mx-5" flat>
+                          <img src="../../../public/images/Avatar_Default/avatar-undefine.png" id="img">
+                      </v-card>
+                    </v-col>
+                    </v-row>
                     <br>
                     <br>
 
@@ -118,24 +138,9 @@
                                 Terminos y condicion de uso
                             </v-card-title>
                     
-                            <v-card-text>
-                                <p>1. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
-                                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                    nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit 
-                                    anim id est laborum.
-                                </p>
-                                <p>2. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
-                                    ea commodo consequat.
-                                </p>
-                                <p>3. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et 
-                                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex 
-                                    ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-                                    nulla pariatur. 
-                                </p>
-                                 </v-card-text>
-                
+                            <!--trae los terminos desde un componente-->
+                            <terms-and-conditions/>
+
                             <v-divider></v-divider>
                 
                             <v-card-actions>
@@ -189,16 +194,18 @@
 //para poner el snackbar
 import SuccessMessage from "../../components/AllGoodMsj.vue";
 import ErrorMessage from "../../components/ErrorMsj.vue";
+import TermsAndConditions from "../../components/Text/TermsAndConditions.vue";
 //-----------------------------------------------
   import { validationMixin } from 'vuelidate'
   import { required, maxLength, email, sameAs, minLength } from 'vuelidate/lib/validators'
   //para subir los datos a la BD
-  import { insertUser } from "../../services/UsersService";
+  import { insertUser , insertUserWithPhoto} from "../../services/UsersService";
 
   export default {
     components: {
         SuccessMessage,
         ErrorMessage,
+        TermsAndConditions,
     },
     mixins: [validationMixin],
     validations: {
@@ -228,6 +235,10 @@ import ErrorMessage from "../../components/ErrorMsj.vue";
       successShow:false,
       errorShow:false,
       //-------------------
+      photo:"",
+      rules: [
+        value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
+      ],//para la foto
       Firstname: '',
       LastName: '',
       email: '',
@@ -322,65 +333,98 @@ import ErrorMessage from "../../components/ErrorMsj.vue";
       },
     },
 
-    methods: {
-        submit() {
-        const user = {
-        email: this.email,
-        Firstname: this.Firstname,
-        Lastname: this.LastName,
-        select1: this.select1, //tipode doc
-        numberID: this.numberID,
-        typeUser: this.typeUser,
-        photo: this.photo,
-        select2: this.select2, //género
-        birthDate: this.birthDate,
-        password: this.password, 
-        phone:this.phone
-        };
-        insertUser(user)
-        .then(() => 
-            this.successMessage = "Gracias, tu resgitro ha sido exitoso.", 
-            this.successShow = true,
-        )
-        .catch((err) => {
-            if (this.successShow==false) {
-            this.errorMessage = "Error: "+ err + ")",
-            this.errorShow = true 
-            }
-          }
-        );
-    },
-      reset () {
-        this.$refs.form.reset()
-      },
+  methods: {
+      submit() {
+        let request = null;
+        if (this.photo!=undefined || this.photo!=null) {
+          const user = new FormData();
+          user.append("photo",this.photo);
+          user.append("email",this.email);
+          user.append("Firstname",this.Firstname);
+          user.append("Lastname",this.Lastname);
+          user.append("select1",this.select1);
+          user.append("numberID",this.numberID);
+          user.append("typeUser",this.typeUser);
+          user.append("phone",this.phone);
+          user.append("select2",this.select2);
+          user.append("birthDate",this.birthDate);
 
-        //Limpio los campos del formulario
-        clear () {
-            this.$v.$reset()
-            this.Firstname = ''
-            this.LastName = ''
-            this.email = ''
-            this.select1 = null
-            this.select2 = null
-            this.checkbox = false
-            this.numberID=''
-            this.birthDate=null
-        },
-        goBack(){
-            return this.$router.go(-1);
-        },
-        //para el snackbar y actualizar la pagina luego de registrarse
-        close(){
-          if (this.successShow==true) {
-            this.successShow=false,
-            this.$router.push("/login");
-          }
-          else{
-            this.errorShow=false;
-            //this.clear(),Limpio los campos
-            }
+          request = insertUserWithPhoto(user);
           
-      },
+        } else {
+          const user = {
+          email: this.email,
+          Firstname: this.Firstname,
+          Lastname: this.LastName,
+          select1: this.select1, //tipode doc
+          numberID: this.numberID,
+          typeUser: this.typeUser,
+          select2: this.select2, //género
+          birthDate: this.birthDate,
+          password: this.password, 
+          phone:this.phone
+          };
+          request = insertUser(user)
+        }
+      
+      request
+      .then(() => 
+          this.successMessage = "Gracias, tu resgitro ha sido exitoso.", 
+          this.successShow = true,
+      )
+      .catch((err) => {
+          this.successShow=false 
+          this.errorMessage = "Error: "+ err + ")",
+          this.errorShow = true 
+        }
+      );
+  },
+    reset () {
+      this.$refs.form.reset()
     },
-  }
+
+      //Limpio los campos del formulario
+      clear () {
+          this.$v.$reset()
+          this.Firstname = ''
+          this.LastName = ''
+          this.email = ''
+          this.select1 = null
+          this.select2 = null
+          this.checkbox = false
+          this.numberID=''
+          this.birthDate=null
+      },
+      goBack(){
+          return this.$router.go(-1);
+      },
+      //para el snackbar y actualizar la pagina luego de registrarse
+      close(){
+        if (this.successShow==true) {
+          this.successShow=false,
+          this.$router.push("/login");
+        }
+        else{
+          this.errorShow=false;
+          //this.clear(),Limpio los campos
+          }
+    },
+    mostrar(){
+      var archivo = document.getElementById("photo").files[0];
+      var reader = new FileReader();
+        reader.readAsDataURL(archivo );
+        reader.onloadend = function () {
+          document.getElementById("img").src = reader.result;
+        
+      }
+    },
+  },
+}
 </script>
+<style>
+#img{
+    width: 150px;
+    height: 150px;
+    border-radius: 75px;
+}
+</style>

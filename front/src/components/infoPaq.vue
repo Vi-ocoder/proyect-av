@@ -5,17 +5,50 @@
     flat
   >
     <v-img
+      v-if="otherRoot=='ClienteResources'"
+      :src="paq.imagePaq"
+      height="180px"
+    ></v-img>
+    
+    <v-img
+      v-else
       :src="paq.imagePaq"
       height="400px"
     ></v-img>
+   
+      
+      <v-card-title text-aling="left" >
+        {{paq.namePaq}}
+        <v-divider inset ligth></v-divider> • 
+        <v-rating
+          :value="rating"
+          color="amber"
+          dense
+          half-increments
+          readonly
+          size="14"
+        ></v-rating>
+      </v-card-title>
 
-    <v-card-title text-aling="left">
-      {{paq.namePaq}}
-    </v-card-title>
+      <v-card-text>
+        <v-row
+        align="center"
+        class="mx-0"
+      >
 
-    <v-card-subtitle>
-     {{paq.cityPaq}} - {{paq.depPaq}}
-    </v-card-subtitle>
+      <div class="grey--text ms-1">
+          {{paq.cityPaq}} - {{paq.depPaq}}
+      </div>
+      </v-row>
+      <v-row>
+      <div class="my-2 grey--text text-subtitle-1 ms-3">
+        Ahora desde: 
+      </div>
+      <div class="my-2 orange--text text-subtitle-1">
+        ${{paq.valuePaq}} 
+      </div></v-row>
+      </v-card-text>
+   
 
     <v-card-actions>
       <v-btn
@@ -25,6 +58,9 @@
       >
         DETALLES
       </v-btn>
+      
+
+      <v-spacer></v-spacer>
       <v-btn 
       text 
       color="primary" 
@@ -32,34 +68,24 @@
       > 
       VER TODO 
       </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn
-        icon
-        @click="show = !show"
-      >
-        <v-icon>{{ show ? 'mdi-chevron-up' : '$' }}</v-icon>
-      </v-btn>
     </v-card-actions>
 
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-
-        <v-card-text>
-          Desde ${{paq.valuePaq}}
-        </v-card-text>
-      </div>
-    </v-expand-transition>
   </v-card>
 </template>
 
 <script>
   export default {
-    props:["paq","dialog"],
+    props:["paq","dialog","otherRoot"],
     data: () => ({
-      show: false,
+      rating:0,
     }),
-  }
+    mounted(){
+      const rating = parseInt(this.paq.valuePaq.substring(0, 1))+1;
+      if (rating > 5) {
+        this.rating = 5
+      } else {
+        this.rating=rating
+      }
+    },
+  };
 </script>

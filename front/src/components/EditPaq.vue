@@ -122,7 +122,7 @@
 
           <!--AQUI ESTA LA FILA DE INCLUIDOS (ELEMENTOS QUE INCLUYE CADA PAQUETE)-->
           <v-col cols="12">
-            <incluidos @arrayInIncluidos="selection=$event" />
+            <incluidos @arrayInIncluidos="selection=$event" @lock="lock=$event" />
           </v-col>
           <!--Fin FILA DE INCLUIDOS-->
 
@@ -142,7 +142,7 @@
             </p>
           </v-col>
           <v-col cols="6" class="text-center">
-            <v-btn color="success" class="mr-0" @click="actualizar()">
+            <v-btn :disabled="lock" color="success" class="mr-0" @click="actualizar()">
               ACTUALIZAR PAQUETE # {{idPaqRoot}}
             </v-btn>
             <br><br>
@@ -183,6 +183,7 @@ export default {
   props: ["idPaqRoot" , "namePaqRoot", "dialog", "paqRoot"],
   data() {
     return {
+      lock:"",
       successMessage: "",
       successShow: false,
       errorMessage: "",

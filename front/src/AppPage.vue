@@ -5,8 +5,9 @@
     
     
     <v-main>
-
+      
       <router-view>   </router-view>
+      <v-container style="height: 80px;"></v-container>
     </v-main>
 
   </v-app>
@@ -26,7 +27,10 @@ const hasEnter= null; //varaible global
 
     components:{
       NavigaComponent
-    }
+    },
+    created(){
+      window.document.title = 'ColombiaTour';
+    },
      
   }
 </script> 
