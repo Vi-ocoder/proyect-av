@@ -68,7 +68,7 @@
                      @input="$v.birthDate.$touch()"
                      @blur="$v.birthDate.$touch()"
                     ></v-text-field>
-                    <v-row>
+                    <!-- <v-row>
                     <v-col>
                     <v-file-input
                       class="pt-12"
@@ -80,6 +80,7 @@
                       prepend-icon="mdi-camera"
                       label="Foto de perfil"
                       @change="mostrar()"
+                      
                     ></v-file-input>
                     </v-col>
                     <v-col>
@@ -87,7 +88,7 @@
                           <img src="../../../public/images/Avatar_Default/avatar-undefine.png" id="img">
                       </v-card>
                     </v-col>
-                    </v-row>
+                    </v-row> -->
                     <br>
                     <br>
 
@@ -235,7 +236,7 @@ import TermsAndConditions from "../../components/Text/TermsAndConditions.vue";
       successShow:false,
       errorShow:false,
       //-------------------
-      photo:"",
+      photo:null,
       rules: [
         value => !value || value.size < 2000000 || 'Avatar size should be less than 2 MB!',
       ],//para la foto
@@ -416,7 +417,9 @@ import TermsAndConditions from "../../components/Text/TermsAndConditions.vue";
         reader.onloadend = function () {
           document.getElementById("img").src = reader.result;
         
-      }
+      },
+
+      console.log('valor de foto:'+this.photo);
     },
   },
 }
